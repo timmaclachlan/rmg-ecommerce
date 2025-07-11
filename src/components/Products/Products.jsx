@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router";
 import {
   Box,
   Stack,
@@ -125,6 +126,10 @@ function Products({ items, onStageChange }) {
         >
           Go to Basket
         </Button>
+
+        <NavLink to="/basket" style={{ textDecoration: "none" }}>
+          Go to Basket
+        </NavLink>
       </Box>
 
       {/* Dialog component */}

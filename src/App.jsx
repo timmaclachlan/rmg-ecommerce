@@ -1,25 +1,25 @@
-import MainContainer from "./components/MainContainer";
+import { BrowserRouter, Routes, Route } from "react-router";
+
+import AppProviders from "./components/AppProviders";
+import HomeContent from "./components/HomeContent";
+import Checkout from "./components/Checkout";
+import BasketFull from "./components/Basket/BasketFull";
 
 import "./index.css";
 
-import AppProviders from "./components/AppProviders";
-import Header from "./components/Header/Header";
-
-function Footer() {
-  return (
-    <footer>
-      <div>This is the footer</div>
-    </footer>
-  );
-}
-
 const App = () => {
   return (
-    <AppProviders>
-      <Header />
-      <MainContainer />
-      <Footer />
-    </AppProviders>
+    <>
+      <AppProviders>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomeContent />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/basket" element={<BasketFull />} />
+          </Routes>
+        </BrowserRouter>
+      </AppProviders>
+    </>
   );
 };
 
