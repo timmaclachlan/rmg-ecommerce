@@ -4,6 +4,7 @@ import AppProviders from "./components/AppProviders";
 import HomeContent from "./components/HomeContent";
 import Checkout from "./components/Checkout";
 import BasketFull from "./components/Basket/BasketFull";
+import MainContainer from "./components/MainContainer";
 
 import "./index.css";
 
@@ -13,9 +14,11 @@ const App = () => {
       <AppProviders>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomeContent />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/basket" element={<BasketFull />} />
+            <Route element={<MainContainer />}>
+              <Route index element={<HomeContent />} />
+              <Route path="/basket" element={<BasketFull />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </AppProviders>

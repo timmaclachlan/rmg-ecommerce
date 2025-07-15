@@ -23,7 +23,7 @@ import ShareIcon from "@mui/icons-material/Share";
 
 import { useBasket } from "../../hooks/useBasket";
 
-function Products({ items, onStageChange }) {
+function Products({ items }) {
   const { addItem } = useBasket();
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -118,15 +118,6 @@ function Products({ items, onStageChange }) {
       </Stack>
 
       <Box textAlign="center" mt={5}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() => onStageChange("Basket")}
-        >
-          Go to Basket
-        </Button>
-
         <NavLink to="/basket" style={{ textDecoration: "none" }}>
           Go to Basket
         </NavLink>

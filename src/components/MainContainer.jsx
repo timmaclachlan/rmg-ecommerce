@@ -1,5 +1,5 @@
+import { Outlet } from "react-router";
 import Header from "./Header/Header";
-import MainContent from "./HomeContent";
 
 function Footer() {
   return (
@@ -13,7 +13,7 @@ function MainContainer() {
   return (
     <>
       <Header />
-      <MainContent />
+      <Outlet />
       <Footer />
     </>
   );

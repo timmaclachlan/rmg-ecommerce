@@ -5,15 +5,16 @@ import {
   ListItem,
   ListItemText,
   IconButton,
-  Button,
   Divider,
   Stack,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { NavLink } from "react-router";
+
 import { useBasket } from "../../hooks/useBasket";
 
-function BasketFull({ onStageChange }) {
+function BasketFull() {
   const { basketItems, deleteItem } = useBasket();
   return (
     <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: "auto" }}>
@@ -38,16 +39,12 @@ function BasketFull({ onStageChange }) {
       <Divider sx={{ my: 2 }} />
 
       <Stack direction="row" spacing={2} flexWrap="wrap">
-        <Button variant="outlined" onClick={() => onStageChange("Products")}>
+        <NavLink to="/" style={{ textDecoration: "none" }}>
           Go to Products
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => onStageChange("Checkout")}
-        >
-          Checkout
-        </Button>
+        </NavLink>
+        <NavLink to="/checkout" style={{ textDecoration: "none" }}>
+          Go to Checkout
+        </NavLink>
       </Stack>
     </Paper>
   );

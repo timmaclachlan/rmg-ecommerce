@@ -10,15 +10,21 @@ import {
   Radio,
   Checkbox,
   Stack,
-  Paper,
 } from "@mui/material";
+
+import { NavLink } from "react-router";
 
 import { useCustomer } from "../hooks/useCustomer";
 import { useMutateEntity } from "../hooks/useMutateEntity";
 
-function Checkout({ onCompleteCheckout, onStageChange }) {
+function Checkout() {
   const { customer, updateCustomer } = useCustomer();
   const { updateEntity } = useMutateEntity();
+
+  function onCompleteCheckout(name, email) {
+    alert(name);
+    alert(email);
+  }
 
   function onSaveCustomer() {
     if (
@@ -116,13 +122,9 @@ function Checkout({ onCompleteCheckout, onStageChange }) {
       </Stack>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => onStageChange("Basket")}
-        >
-          Back to Basket
-        </Button>
+        <NavLink to="/basket" style={{ textDecoration: "none" }}>
+          Go to Basket
+        </NavLink>
         <Button
           variant="contained"
           color="primary"
