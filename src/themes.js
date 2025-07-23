@@ -1,9 +1,24 @@
 // themes.js
 import { createTheme } from "@mui/material/styles";
+import LinkBehavior from "./components/LinkBehavior";
 
 const basePalette = {
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', 'sans-serif'",
+  },
+};
+
+// Create a shared components config
+const linkAwareComponents = {
+  MuiLink: {
+    defaultProps: {
+      component: LinkBehavior,
+    },
+  },
+  MuiButtonBase: {
+    defaultProps: {
+      LinkComponent: LinkBehavior,
+    },
   },
 };
 
@@ -16,6 +31,7 @@ export const themes = {
         primary: { main: "#90caf9" },
         secondary: { main: "#f48fb1" },
       },
+      components: linkAwareComponents,
     }),
     dark: createTheme({
       ...basePalette,
@@ -32,6 +48,7 @@ export const themes = {
           paper: "#24344d",
         },
       },
+      components: linkAwareComponents,
     }),
   },
   materialui: {
@@ -50,6 +67,7 @@ export const themes = {
           paper: "#fff",
         },
       },
+      components: linkAwareComponents,
     }),
     dark: createTheme({
       ...basePalette,
@@ -66,6 +84,7 @@ export const themes = {
           paper: "#424242",
         },
       },
+      components: linkAwareComponents,
     }),
   },
   green: {
@@ -76,6 +95,7 @@ export const themes = {
         primary: { main: "#81c784" },
         secondary: { main: "#aed581" },
       },
+      components: linkAwareComponents,
     }),
     dark: createTheme({
       ...basePalette,
@@ -84,6 +104,7 @@ export const themes = {
         primary: { main: "#4caf50" },
         secondary: { main: "#8bc34a" },
       },
+      components: linkAwareComponents,
     }),
   },
 
@@ -95,6 +116,7 @@ export const themes = {
         primary: { main: "#ba68c8" },
         secondary: { main: "#f3e5f5" },
       },
+      components: linkAwareComponents,
     }),
     dark: createTheme({
       ...basePalette,

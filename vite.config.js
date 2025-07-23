@@ -7,8 +7,8 @@ export default defineConfig({
     react(),
     checker({
       eslint: {
-        useFlatConfig: true, // ✅ tells checker to use ESLint v9 format
-        lintCommand: 'eslint "./src/**/*.{js,jsx}"',
+        useFlatConfig: true,
+        lintCommand: "eslint src --ext .js,.jsx",
       },
     }),
   ],

@@ -1,29 +1,58 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from "@eslint/js";
+import eslintPluginReact from "eslint-plugin-react";
+import { FlatCompat } from "@eslint/eslintrc";
+import path from "path";
 
-export default defineConfig([
-  globalIgnores(['dist']),
+const compat = new FlatCompat({
+  baseDirectory: path.resolve(),
+});
+
+export default [
+  js.configs.recommended,
+
+  // Optional: legacy compatibility
+  ...compat.config({
+    plugins: ["react"],
+    extends: ["plugin:react/recommended"],
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  }),
+
+  // ✅ Direct plugin usage for Flat Config
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
+    plugins: {
+      react: eslintPluginReact,
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 2021,
+      sourceType: "module",
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        localStorage: "readonly",
+      },
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true, // ✅ Enables JSX parsing
+        },
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-no-undef": ["error", { allowGlobals: false }], // ✅ This catches <Routettt>
+      "react/jsx-uses-vars": "error",
+      "react/jsx-no-duplicate-props": "error",
+      "no-unused-vars": "warn",
+      "semi": ["error", "always"],
+      "quotes": ["error", "double"],
     },
   },
-])
+];
