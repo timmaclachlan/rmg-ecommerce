@@ -12,7 +12,7 @@ import {
   Stack,
 } from "@mui/material";
 
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import { useCustomer } from "../hooks/useCustomer";
 import { useMutateEntity } from "../hooks/useMutateEntity";
@@ -34,7 +34,6 @@ function Checkout() {
       customer.phone !== ""
     ) {
       onCompleteCheckout(customer.name, customer.email);
-      navigate("/basket");
     }
   }
 
@@ -124,7 +123,11 @@ function Checkout() {
       </Stack>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Link to="/basket">Go to Basket</Link>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => navigate("/products")}
+        />
         <Button
           variant="contained"
           color="primary"

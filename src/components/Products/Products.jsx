@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router";
 import {
   Box,
   Stack,
@@ -118,8 +117,8 @@ function Products({ items }) {
       </Stack>
 
       <Box textAlign="center" mt={5}>
-        <Link to="/basket">Go to Basket</Link>
-        <Button component={Link} to="/basket">
+        <a href="/basket">Go to Basket</a>
+        <Button href="/basket">
           Go to Basket
         </Button>
       </Box>

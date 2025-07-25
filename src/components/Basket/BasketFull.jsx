@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { NavLink } from "react-router";
 
 import { useBasket } from "../../hooks/useBasket";
 
@@ -39,12 +38,12 @@ function BasketFull() {
       <Divider sx={{ my: 2 }} />
 
       <Stack direction="row" spacing={2} flexWrap="wrap">
-        <NavLink to="/" style={{ textDecoration: "none" }}>
+        <a href="/" style={{ textDecoration: "none" }}>
           Go to Products
-        </NavLink>
-        <NavLink to="/checkout" style={{ textDecoration: "none" }}>
+        </a>
+        <a href="/checkout" style={{ textDecoration: "none" }}>
           Go to Checkout
-        </NavLink>
+        </a>
       </Stack>
     </Paper>
   );
