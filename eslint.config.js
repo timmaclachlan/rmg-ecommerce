@@ -1,58 +1,39 @@
 import js from "@eslint/js";
-import eslintPluginReact from "eslint-plugin-react";
-import { FlatCompat } from "@eslint/eslintrc";
-import path from "path";
-
-const compat = new FlatCompat({
-  baseDirectory: path.resolve(),
-});
+import globals from "globals";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  js.configs.recommended,
-
-  // Optional: legacy compatibility
-  ...compat.config({
-    plugins: ["react"],
-    extends: ["plugin:react/recommended"],
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-  }),
-
-  // ✅ Direct plugin usage for Flat Config
+  { ignores: ["dist"] },
   {
-    plugins: {
-      react: eslintPluginReact,
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
+    files: ["**/*.{js,jsx}"],
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: "module",
-      globals: {
-        window: "readonly",
-        document: "readonly",
-        localStorage: "readonly",
-      },
+      ecmaVersion: 2020,
+      globals: globals.browser,
       parserOptions: {
-        ecmaFeatures: {
-          jsx: true, // ✅ Enables JSX parsing
-        },
+        ecmaVersion: "latest",
+        ecmaFeatures: { jsx: true },
+        sourceType: "module",
       },
+    },
+    settings: { react: { version: "18.3" } },
+    plugins: {
+      react,
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
     },
     rules: {
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-no-undef": ["error", { allowGlobals: false }], // ✅ This catches <Routettt>
-      "react/jsx-uses-vars": "error",
-      "react/jsx-no-duplicate-props": "error",
-      "no-unused-vars": "warn",
-      "semi": ["error", "always"],
-      "quotes": ["error", "double"],
+      ...js.configs.recommended.rules,
+      ...react.configs.recommended.rules,
+      ...react.configs["jsx-runtime"].rules,
+      ...reactHooks.configs.recommended.rules,
+      "react/jsx-no-target-blank": "off",
+      'react/prop-types': 'off',
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
     },
   },
 ];
