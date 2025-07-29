@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Box,
   Stack,
@@ -16,13 +17,14 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-} from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShareIcon from "@mui/icons-material/Share";
+} from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ShareIcon from '@mui/icons-material/Share';
 
-import { useBasket } from "../../hooks/useBasket";
+import { useBasket } from '../../hooks/useBasket';
 
 function Products({ items }) {
+  const navigate = useNavigate();
   const { addItem } = useBasket();
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -35,7 +37,7 @@ function Products({ items }) {
   };
 
   return (
-    <Box sx={{ p: 3, maxWidth: 600, mx: "auto" }}>
+    <Box sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
       <Typography variant="h4" gutterBottom>
         Shop Products
       </Typography>
@@ -45,18 +47,18 @@ function Products({ items }) {
           <Card
             key={item.id}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              "&:hover": {
-                transform: "scale(1.01)",
+              display: 'flex',
+              flexDirection: 'column',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              '&:hover': {
+                transform: 'scale(1.01)',
                 boxShadow: 4,
               },
             }}
           >
             <CardActionArea
               onClick={() => handleOpenDialog(item)}
-              sx={{ display: "flex", alignItems: "stretch" }}
+              sx={{ display: 'flex', alignItems: 'stretch' }}
             >
               <CardMedia
                 component="img"
@@ -65,7 +67,7 @@ function Products({ items }) {
                 sx={{
                   width: 120,
                   height: 120,
-                  objectFit: "cover",
+                  objectFit: 'cover',
                   flexShrink: 0,
                 }}
               />
@@ -75,7 +77,13 @@ function Products({ items }) {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography variant="h6" gutterBottom>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    onClick={() =>
+                      navigate(`/products/${item.id}/${item.category}`)
+                    }
+                  >
                     {item.title}
                   </Typography>
                   {item.isNew && (
@@ -87,7 +95,7 @@ function Products({ items }) {
                   color="text.secondary"
                   sx={{ mb: 1 }}
                 >
-                  {item.description || "No description available."}
+                  {item.description || 'No description available.'}
                 </Typography>
                 <Typography variant="body1" color="primary">
                   £{item.price.toFixed(2)}
@@ -95,7 +103,7 @@ function Products({ items }) {
               </CardContent>
             </CardActionArea>
 
-            <CardActions sx={{ justifyContent: "space-between", px: 2 }}>
+            <CardActions sx={{ justifyContent: 'space-between', px: 2 }}>
               <Box>
                 <Tooltip title="Add to wishlist">
                   <IconButton>
@@ -118,9 +126,7 @@ function Products({ items }) {
 
       <Box textAlign="center" mt={5}>
         <a href="/basket">Go to Basket</a>
-        <Button href="/basket">
-          Go to Basket
-        </Button>
+        <Button href="/basket">Go to Basket</Button>
       </Box>
 
       {/* Dialog component */}
@@ -135,7 +141,7 @@ function Products({ items }) {
             <DialogTitle>{selectedItem.title}</DialogTitle>
             <DialogContent dividers>
               <Typography variant="body1" gutterBottom>
-                {selectedItem.description || "No description available."}
+                {selectedItem.description || 'No description available.'}
               </Typography>
               <Typography variant="h6" color="primary">
                 £{selectedItem.price.toFixed(2)}

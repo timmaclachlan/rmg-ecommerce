@@ -6,6 +6,7 @@ import Checkout from './components/Checkout';
 import BasketFull from './components/Basket/BasketFull';
 import StoreLayout from './components/StoreLayout';
 import PurchaseLayout from './components/PurchaseLayout';
+import ProductDetailContainer from './components/Products/ProductDetailContainer';
 
 import './index.css';
 
@@ -17,6 +18,10 @@ const App = () => {
           <Routes>
             <Route element={<StoreLayout />}>
               <Route index element={<HomeContent />} />
+              <Route
+                path="/products/:id/:category"
+                element={<ProductDetailContainer />}
+              />
             </Route>
 
             <Route element={<PurchaseLayout />}>
