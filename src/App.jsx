@@ -17,18 +17,28 @@ const NotFound = () => (
   </div>
 );
 
+const StoreNotFound = () => (
+  <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <h1>404 - Product or Category Not Found</h1>
+    <p>The category or product does not exist</p>
+  </div>
+);
+
 const App = () => {
   return (
     <>
       <AppProviders>
         <BrowserRouter>
           <Routes>
-            <Route element={<StoreLayout />}>
-              <Route index element={<HomeContent />} />
-              <Route
-                path="/products/:id/:category?"
-                element={<ProductDetailContainer />}
-              />
+            <Route path="catalog">
+              <Route element={<StoreLayout />}>
+                <Route index element={<HomeContent />} />
+                <Route
+                  path="products/:id/:category?"
+                  element={<ProductDetailContainer />}
+                />
+                <Route path="products/notfound" element={<StoreNotFound />} />
+              </Route>
             </Route>
 
             <Route element={<PurchaseLayout />}>

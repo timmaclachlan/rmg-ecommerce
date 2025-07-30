@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 
 import ProductDetail from './ProductDetail';
 
 function ProductDetailContainer() {
+  const navigate = useNavigate();
   const { id, category } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,7 +31,12 @@ function ProductDetailContainer() {
   }, [product, id]);
 
   if (loading) return <div>Loading...Please Wait</div>;
-  if (error) return <div>Error: {error.message}</div>;
+
+  if (axios.isAxiosError(error)) {
+    if (error.response?.status === 404) {
+      navigate('/products/notfound');
+    }
+  }
 
   return (
     <>
