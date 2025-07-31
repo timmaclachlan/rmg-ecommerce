@@ -34,7 +34,7 @@ function ProductDetailContainer() {
 
   if (axios.isAxiosError(error)) {
     if (error.response?.status === 404) {
-      navigate('/products/notfound');
+      navigate('/store/products/notfound');
     }
   }
 

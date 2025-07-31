@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, useParams, Navigate } from 'react-router';
 
 import HomeContent from '../components/HomeContent';
 import Checkout from '../components/Checkout';
@@ -9,6 +9,15 @@ import ProductDetailContainer from '../components/Products/ProductDetailContaine
 import StoreNotFound from './StoreNotFound';
 import NotFound from './NotFound';
 
+const ProductDetailGuard = () => {
+  const { id } = useParams();
+  return id ? (
+    <ProductDetailContainer />
+  ) : (
+    <Navigate to="/store/products/notfound" />
+  );
+};
+
 const AppRoutes = createBrowserRouter([
   {
     path: 'store',
@@ -16,8 +25,8 @@ const AppRoutes = createBrowserRouter([
     children: [
       { index: true, Component: HomeContent },
       {
-        path: 'products/:id/:category?',
-        Component: ProductDetailContainer,
+        path: 'products/:id?/:category?',
+        Component: ProductDetailGuard,
       },
       {
         path: 'products/notfound',
