@@ -81,7 +81,7 @@ function Products({ items }) {
                     variant="h6"
                     gutterBottom
                     onClick={() =>
-                      navigate(`/products/${item.id}/${item.category}`)
+                      navigate(`/store/products/${item.id}/${item.category}`)
                     }
                   >
                     {item.title}
