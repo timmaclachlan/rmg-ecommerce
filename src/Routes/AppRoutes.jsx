@@ -1,4 +1,4 @@
-import { createBrowserRouter, useParams, Navigate } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
 
 import HomeContent from '../components/HomeContent';
 import Checkout from '../components/Checkout';
@@ -9,13 +9,11 @@ import ProductDetailContainer from '../components/Products/ProductDetailContaine
 import StoreNotFound from './StoreNotFound';
 import NotFound from './NotFound';
 
-const ProductDetailGuard = () => {
-  const { id } = useParams();
-  return id ? (
-    <ProductDetailContainer />
-  ) : (
-    <Navigate to="/store/products/notfound" />
-  );
+const validateProductParams = ({ params }) => {
+  if (!params.id) {
+    throw redirect('/store/products/notfound');
+  }
+  return null;
 };
 
 const AppRoutes = createBrowserRouter([
@@ -26,7 +24,8 @@ const AppRoutes = createBrowserRouter([
       { index: true, Component: HomeContent },
       {
         path: 'products/:id?/:category?',
-        Component: ProductDetailGuard,
+        Component: ProductDetailContainer,
+        loader: validateProductParams,
       },
       {
         path: 'products/notfound',
