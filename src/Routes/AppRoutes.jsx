@@ -1,20 +1,15 @@
-import { createBrowserRouter, redirect } from 'react-router';
+import { createBrowserRouter } from 'react-router';
 
 import HomeContent from '../components/HomeContent';
 import Checkout from '../components/Checkout';
 import BasketFull from '../components/Basket/BasketFull';
 import StoreLayout from '../components/StoreLayout';
 import PurchaseLayout from '../components/PurchaseLayout';
-import ProductDetailContainer from '../components/Products/ProductDetailContainer';
+import ProductDetail from '../components/Products/ProductDetail';
 import StoreNotFound from './StoreNotFound';
 import NotFound from './NotFound';
 
-const validateProductParams = ({ params }) => {
-  if (!params.id) {
-    throw redirect('/store/products/notfound');
-  }
-  return null;
-};
+import { productLoader } from '../loaders/productLoader';
 
 const AppRoutes = createBrowserRouter([
   {
@@ -24,8 +19,8 @@ const AppRoutes = createBrowserRouter([
       { index: true, Component: HomeContent },
       {
         path: 'products/:id?/:category?',
-        Component: ProductDetailContainer,
-        loader: validateProductParams,
+        Component: ProductDetail,
+        loader: productLoader,
       },
       {
         path: 'products/notfound',
