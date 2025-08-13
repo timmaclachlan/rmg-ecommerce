@@ -20,3 +20,18 @@ export const productLoader = async ({ params }) => {
     throw new Response('Failed to load product', { status: 500 });
   }
 };
+
+export const productsPageLoader = async ({request}) => {
+  const url = new URL(request.url);
+  const category = url.searchParams.get('category');
+
+  const [categoriesRes, productsRes] = await Promise.all([
+    axios.get('https://dummyjson.com/products/category-list'),
+      axios.get(`https://dummyjson.com/products/category/${category}`)
+  ]);
+
+  return {
+    categories: categoriesRes.data,
+    products: productsRes.data.products,
+  };
+};

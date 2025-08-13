@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+
 import {
   Box,
   Stack,
@@ -23,7 +24,7 @@ import ShareIcon from '@mui/icons-material/Share';
 
 import { useBasket } from '../../hooks/useBasket';
 
-function Products({ items }) {
+function Products({ products }) {
   const navigate = useNavigate();
   const { addItem } = useBasket();
   const [selectedItem, setSelectedItem] = useState(null);
@@ -43,7 +44,7 @@ function Products({ items }) {
       </Typography>
 
       <Stack spacing={3}>
-        {items.map((item) => (
+        {products.map((item) => (
           <Card
             key={item.id}
             sx={{

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from 'react';
+
 import {
   Paper,
   List,
@@ -6,9 +7,9 @@ import {
   ListItemText,
   Typography,
   Divider,
-} from "@mui/material";
+} from '@mui/material';
 
-function Categories({ categories, onClick }) {
+function Categories({ categories, onCategoriesClick: onClick }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleSelect = (category) => {
@@ -24,7 +25,7 @@ function Categories({ categories, onClick }) {
         maxWidth: 300,
         bgcolor: theme.palette.background.paper,
         color: theme.palette.text.primary,
-        border: "1px solid",
+        border: '1px solid',
         borderColor: theme.palette.divider,
         boxShadow: theme.shadows[3],
       })}
@@ -48,11 +49,11 @@ function Categories({ categories, onClick }) {
             sx={{
               borderRadius: 1,
               mb: 0.5,
-              "&.Mui-selected": {
-                bgcolor: "primary.dark",
-                color: "primary.contrastText",
-                "&:hover": {
-                  bgcolor: "primary.dark",
+              '&.Mui-selected': {
+                bgcolor: 'primary.dark',
+                color: 'primary.contrastText',
+                '&:hover': {
+                  bgcolor: 'primary.dark',
                 },
               },
             }}

@@ -1,29 +1,40 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router';
 
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography } from '@mui/material';
 
-import BasketMini from "./Basket/BasketMini";
-import ProductsContainer from "./Products/ProductsContainer";
-import CategoriesContainer from "./Categories/CategoriesContainer";
+import BasketMini from './Basket/BasketMini';
+import Products from './Products/Products';
+import Categories from './Categories/Categories';
 
-import { useCustomer } from "../hooks/useCustomer";
+import { useCustomer } from '../hooks/useCustomer';
 
 function HomeContent() {
+  const { categories, products } = useOutletContext();
+  const [, setSearchParams] = useSearchParams();
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const { customer } = useCustomer();
 
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setSearchParams({ category: category });
+  };
+
   return (
     <>
+      <h4>{selectedCategory}</h4>
       <Typography variant="caption">Logged in as: {customer.name}</Typography>
       <BasketMini />
       <Grid container spacing={2}>
         <Grid item xs="auto">
-          <CategoriesContainer
-            onCategoriesClick={(cat) => setSelectedCategory(cat)}
+          <Categories
+            categories={categories}
+            onCategoriesClick={handleCategoryClick}
           />
         </Grid>
         <Grid item xs>
-          <ProductsContainer category={selectedCategory} />
+          <Products products={products} />
         </Grid>
       </Grid>
     </>

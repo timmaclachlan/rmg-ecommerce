@@ -1,3 +1,4 @@
+import { useLoaderData } from 'react-router';
 import { Outlet } from 'react-router';
 
 import StoreTop from './Header/StoreTop';
@@ -12,11 +13,13 @@ function Footer() {
 }
 
 function StoreLayout() {
+  const { categories, products } = useLoaderData();
+
   return (
     <>
       <StoreTop />
       <Header />
-      <Outlet />
+      <Outlet context={{ categories, products }} />
       <Footer />
     </>
   );

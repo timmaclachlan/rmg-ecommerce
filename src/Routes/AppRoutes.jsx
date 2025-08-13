@@ -9,12 +9,13 @@ import ProductDetail from '../components/Products/ProductDetail';
 import StoreNotFound from './StoreNotFound';
 import NotFound from './NotFound';
 
-import { productLoader } from '../loaders/productLoader';
+import { productLoader, productsPageLoader } from '../loaders/loaders';
 
 const AppRoutes = createBrowserRouter([
   {
     path: 'store',
     Component: StoreLayout,
+    loader: productsPageLoader,
     children: [
       { index: true, Component: HomeContent },
       {
