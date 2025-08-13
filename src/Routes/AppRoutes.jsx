@@ -15,9 +15,8 @@ const AppRoutes = createBrowserRouter([
   {
     path: 'store',
     Component: StoreLayout,
-    loader: productsPageLoader,
     children: [
-      { index: true, Component: HomeContent },
+      { index: true, Component: HomeContent, loader: productsPageLoader },
       {
         path: 'products/:id?/:category?',
         Component: ProductDetail,
