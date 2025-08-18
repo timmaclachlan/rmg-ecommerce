@@ -1,4 +1,4 @@
-import { useLoaderData, useSearchParams } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 
 import { Grid, Typography } from '@mui/material';
 
@@ -9,14 +9,13 @@ import Categories from './Categories/Categories';
 import { useCustomer } from '../hooks/useCustomer';
 
 function HomeContent() {
+  const navigate = useNavigate();
   const { categories, products } = useLoaderData();
-
-  const [, setSearchParams] = useSearchParams();
 
   const { customer } = useCustomer();
 
   const handleCategoryClick = (category) => {
-    setSearchParams({ category: category });
+    navigate(`/store/${category}`);
   };
 
   return (

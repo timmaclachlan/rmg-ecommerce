@@ -10,30 +10,25 @@ import {
   Radio,
   Checkbox,
   Stack,
-} from "@mui/material";
+} from '@mui/material';
 
-import { useNavigate } from "react-router";
+import { useNavigate, Form } from 'react-router';
 
-import { useCustomer } from "../hooks/useCustomer";
-import { useMutateEntity } from "../hooks/useMutateEntity";
+import { useCustomer } from '../hooks/useCustomer';
+import { useMutateEntity } from '../hooks/useMutateEntity';
 
 function Checkout() {
   const { customer, updateCustomer } = useCustomer();
   const { updateEntity } = useMutateEntity();
   let navigate = useNavigate();
 
-  function onCompleteCheckout(name, email) {
-    alert(name);
-    alert(email);
-  }
-
   function onSaveCustomer() {
     if (
-      customer?.name !== "" &&
-      customer.email !== "" &&
-      customer.phone !== ""
+      customer?.name !== '' &&
+      customer.email !== '' &&
+      customer.phone !== ''
     ) {
-      onCompleteCheckout(customer.name, customer.email);
+      //onCompleteCheckout(customer.name, customer.email);
     }
   }
 
@@ -52,8 +47,41 @@ function Checkout() {
   const phoneRequired = customer.phone?.length === 0;
 
   return (
-    <Box sx={{ maxWidth: 500, mx: "auto", p: 2 }}>
+    <Box sx={{ maxWidth: 500, mx: 'auto', p: 2 }}>
       <Typography variant="h5">Checkout</Typography>
+      <Form method="post">
+        <TextField
+          fullWidth
+          label="name"
+          name="name"
+          margin="normal"
+          defaultValue={customer.name}
+        />
+        <TextField
+          fullWidth
+          label="email"
+          name="email"
+          margin="normal"
+          defaultValue={customer.email}
+        />
+        <TextField name="phone" defaultValue={customer.phone} />
+        <Checkbox name="newsletter" defaultChecked={customer.newsletter} />
+        <RadioGroup name="shipping" defaultValue={customer.shipping}>
+          <FormControlLabel
+            value="standard"
+            control={<Radio />}
+            label="Standard"
+          />
+          <FormControlLabel
+            value="express"
+            control={<Radio />}
+            label="Express"
+          />
+        </RadioGroup>
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
+      </Form>
 
       <TextField
         fullWidth
@@ -62,7 +90,7 @@ function Checkout() {
         value={customer.name}
         onChange={onChangeValue}
         error={nameRequired}
-        helperText={nameRequired && "Name is required"}
+        helperText={nameRequired && 'Name is required'}
         margin="normal"
       />
 
@@ -73,7 +101,7 @@ function Checkout() {
         value={customer.email}
         onChange={onChangeValue}
         error={emailRequired}
-        helperText={emailRequired && "Email is required"}
+        helperText={emailRequired && 'Email is required'}
         margin="normal"
       />
 
@@ -84,7 +112,7 @@ function Checkout() {
         value={customer.phone}
         onChange={onChangeValue}
         error={phoneRequired}
-        helperText={phoneRequired && "Phone is required"}
+        helperText={phoneRequired && 'Phone is required'}
         margin="normal"
       />
 
@@ -122,11 +150,11 @@ function Checkout() {
         </FormControl>
       </Stack>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => navigate("/products")}
+          onClick={() => navigate('/products')}
         />
         <Button
           variant="contained"

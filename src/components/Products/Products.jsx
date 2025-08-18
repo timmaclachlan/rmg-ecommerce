@@ -126,8 +126,8 @@ function Products({ products }) {
       </Stack>
 
       <Box textAlign="center" mt={5}>
-        <a href="/basket">Go to Basket</a>
-        <Button href="/basket">Go to Basket</Button>
+        <a href="/purchase/basket">Go to Basket</a>
+        <Button href="/purchase/basket">Go to Basket</Button>
       </Box>
 
       {/* Dialog component */}

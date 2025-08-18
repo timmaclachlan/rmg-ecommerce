@@ -21,13 +21,12 @@ export const productLoader = async ({ params }) => {
   }
 };
 
-export const productsPageLoader = async ({request}) => {
-  const url = new URL(request.url);
-  const category = url.searchParams.get('category');
+export const productsPageLoader = async ({params}) => {
+  const category = params.category;
 
   const [categoriesRes, productsRes] = await Promise.all([
     axios.get('https://dummyjson.com/products/category-list'),
-      axios.get(`https://dummyjson.com/products/category/${category}`)
+    axios.get(`https://dummyjson.com/products/category/${category}`)
   ]);
 
   return {

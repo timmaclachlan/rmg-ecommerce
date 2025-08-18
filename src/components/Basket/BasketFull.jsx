@@ -7,16 +7,15 @@ import {
   IconButton,
   Divider,
   Stack,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-
-import { useBasket } from "../../hooks/useBasket";
+import { useBasket } from '../../hooks/useBasket';
 
 function BasketFull() {
   const { basketItems, deleteItem } = useBasket();
   return (
-    <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: "auto" }}>
+    <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
       <Typography variant="h5" gutterBottom>
         Your Basket
       </Typography>
@@ -38,10 +37,10 @@ function BasketFull() {
       <Divider sx={{ my: 2 }} />
 
       <Stack direction="row" spacing={2} flexWrap="wrap">
-        <a href="/" style={{ textDecoration: "none" }}>
+        <a href="/store" style={{ textDecoration: 'none' }}>
           Go to Products
         </a>
-        <a href="/checkout" style={{ textDecoration: "none" }}>
+        <a href="/purchase/checkout" style={{ textDecoration: 'none' }}>
           Go to Checkout
         </a>
       </Stack>

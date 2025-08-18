@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
 
 import HomeContent from '../components/HomeContent';
 import Checkout from '../components/Checkout';
@@ -8,6 +8,7 @@ import PurchaseLayout from '../components/PurchaseLayout';
 import ProductDetail from '../components/Products/ProductDetail';
 import StoreNotFound from './StoreNotFound';
 import NotFound from './NotFound';
+import OrderConfirmation from '../components/OrderConfirmation';
 
 import { productLoader, productsPageLoader } from '../loaders/loaders';
 
@@ -16,7 +17,11 @@ const AppRoutes = createBrowserRouter([
     path: 'store',
     Component: StoreLayout,
     children: [
-      { index: true, Component: HomeContent, loader: productsPageLoader },
+      {
+        path: ':category?',
+        Component: HomeContent,
+        loader: productsPageLoader,
+      },
       {
         path: 'products/:id?/:category?',
         Component: ProductDetail,
@@ -33,7 +38,21 @@ const AppRoutes = createBrowserRouter([
     Component: PurchaseLayout,
     children: [
       { path: 'basket', Component: BasketFull },
-      { path: 'checkout', Component: Checkout },
+      {
+        path: 'checkout',
+        Component: Checkout,
+        action: async ({ request }) => {
+          const formData = await request.formData();
+          const customer = Object.fromEntries(formData);
+          alert(`Thank you for your purchase, ${customer.name}!`);
+          // Save customer, trigger confirmation, etc.
+          return redirect('/purchase/confirmation');
+        },
+      },
+      {
+        path: 'confirmation',
+        Component: OrderConfirmation,
+      },
     ],
   },
   {
