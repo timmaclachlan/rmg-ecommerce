@@ -12,23 +12,34 @@ import {
   Stack,
 } from '@mui/material';
 
-import { useNavigate, Form } from 'react-router';
+import { useNavigate, useSubmit } from 'react-router';
 
 import { useCustomer } from '../hooks/useCustomer';
 import { useMutateEntity } from '../hooks/useMutateEntity';
 
 function Checkout() {
+  const submit = useSubmit();
   const { customer, updateCustomer } = useCustomer();
   const { updateEntity } = useMutateEntity();
   let navigate = useNavigate();
 
-  function onSaveCustomer() {
+  function onSaveCustomer(e) {
+    e.preventDefault();
     if (
       customer?.name !== '' &&
       customer.email !== '' &&
       customer.phone !== ''
     ) {
-      //onCompleteCheckout(customer.name, customer.email);
+      const formData = new FormData();
+      formData.append('name', customer.name);
+      formData.append('email', customer.email);
+      formData.append('phone', customer.phone);
+      formData.append('newsletter', customer.newsletter);
+      formData.append('shipping', customer.shipping);
+      submit(formData, {
+        method: 'post',
+        action: '/purchase/checkout',
+      });
     }
   }
 
@@ -49,106 +60,74 @@ function Checkout() {
   return (
     <Box sx={{ maxWidth: 500, mx: 'auto', p: 2 }}>
       <Typography variant="h5">Checkout</Typography>
-      <Form method="post">
+      <form onSubmit={onSaveCustomer}>
         <TextField
           fullWidth
-          label="name"
+          label="Name"
           name="name"
+          value={customer.name}
+          onChange={onChangeValue}
+          error={nameRequired}
+          helperText={nameRequired && 'Name is required'}
           margin="normal"
-          defaultValue={customer.name}
         />
+
         <TextField
           fullWidth
-          label="email"
+          label="Email"
           name="email"
+          value={customer.email}
+          onChange={onChangeValue}
+          error={emailRequired}
+          helperText={emailRequired && 'Email is required'}
           margin="normal"
-          defaultValue={customer.email}
         />
-        <TextField name="phone" defaultValue={customer.phone} />
-        <Checkbox name="newsletter" defaultChecked={customer.newsletter} />
-        <RadioGroup name="shipping" defaultValue={customer.shipping}>
-          <FormControlLabel
-            value="standard"
-            control={<Radio />}
-            label="Standard"
-          />
-          <FormControlLabel
-            value="express"
-            control={<Radio />}
-            label="Express"
-          />
-        </RadioGroup>
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </Form>
 
-      <TextField
-        fullWidth
-        label="Name"
-        name="name"
-        value={customer.name}
-        onChange={onChangeValue}
-        error={nameRequired}
-        helperText={nameRequired && 'Name is required'}
-        margin="normal"
-      />
+        <TextField
+          fullWidth
+          label="Phone"
+          name="phone"
+          value={customer.phone}
+          onChange={onChangeValue}
+          error={phoneRequired}
+          helperText={phoneRequired && 'Phone is required'}
+          margin="normal"
+        />
 
-      <TextField
-        fullWidth
-        label="Email"
-        name="email"
-        value={customer.email}
-        onChange={onChangeValue}
-        error={emailRequired}
-        helperText={emailRequired && 'Email is required'}
-        margin="normal"
-      />
-
-      <TextField
-        fullWidth
-        label="Phone"
-        name="phone"
-        value={customer.phone}
-        onChange={onChangeValue}
-        error={phoneRequired}
-        helperText={phoneRequired && 'Phone is required'}
-        margin="normal"
-      />
-
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={customer.newsletter}
-            onChange={onChangeValue}
-            name="newsletter"
-          />
-        }
-        label="Subscribe to newsletter?"
-      />
-
-      <Stack spacing={2}>
-        <FormControl>
-          <FormLabel component="legend">Shipping Option</FormLabel>
-          <RadioGroup
-            name="shipping"
-            value={customer.shipping}
-            onChange={onChangeValue}
-            row
-          >
-            <FormControlLabel
-              value="standard"
-              control={<Radio />}
-              label="Standard"
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={customer.newsletter}
+              onChange={onChangeValue}
+              name="newsletter"
             />
-            <FormControlLabel
-              value="express"
-              control={<Radio />}
-              label="Express"
-            />
-          </RadioGroup>
-        </FormControl>
-      </Stack>
+          }
+          label="Subscribe to newsletter?"
+        />
+
+        <Stack spacing={2}>
+          <FormControl>
+            <FormLabel component="legend">Shipping Option</FormLabel>
+            <RadioGroup
+              name="shipping"
+              value={customer.shipping}
+              onChange={onChangeValue}
+              row
+            >
+              <FormControlLabel
+                value="standard"
+                control={<Radio />}
+                label="Standard"
+              />
+              <FormControlLabel
+                value="express"
+                control={<Radio />}
+                label="Express"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Stack>
+      </form>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
         <Button
