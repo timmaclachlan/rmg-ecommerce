@@ -1,4 +1,4 @@
-import { useCustomer } from '../hooks/useCustomer';
+import { useCustomer } from '../../hooks/useCustomer';
 
 function OrderConfirmation() {
   const { customer } = useCustomer();

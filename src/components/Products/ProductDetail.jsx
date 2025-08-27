@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router';
+import { useLoaderData, Link } from 'react-router';
 
 function ProductDetail() {
   const product = useLoaderData();
@@ -9,7 +9,9 @@ function ProductDetail() {
       <p>{product.description}</p>
       <span>Price: ${product.price}</span>
 
-      <a href="/store">Back to Home</a>
+      <Link to="/store" style={{ textDecoration: 'none' }}>
+        Go to Store
+      </Link>
     </div>
   );
 }

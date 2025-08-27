@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router';
-import StoreTop from './Header/StoreTop';
+
+import StoreTop from '../../components/Header/StoreTop';
+import Header from '../../components/Header/Header';
 
 function Footer() {
   return (
@@ -9,14 +11,15 @@ function Footer() {
   );
 }
 
-function PurchaseLayout() {
+function StoreLayout() {
   return (
     <>
       <StoreTop />
+      <Header />
       <Outlet />
       <Footer />
     </>
   );
 }
 
-export default PurchaseLayout;
+export default StoreLayout;

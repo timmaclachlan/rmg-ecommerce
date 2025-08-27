@@ -14,8 +14,8 @@ import {
 
 import { useNavigate, useSubmit } from 'react-router';
 
-import { useCustomer } from '../hooks/useCustomer';
-import { useMutateEntity } from '../hooks/useMutateEntity';
+import { useCustomer } from '../../hooks/useCustomer';
+import { useMutateEntity } from '../../hooks/useMutateEntity';
 
 function Checkout() {
   const submit = useSubmit();
@@ -133,8 +133,10 @@ function Checkout() {
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => navigate('/products')}
-        />
+          onClick={() => navigate('/store')}
+        >
+          Back to Store
+        </Button>
         <Button
           variant="contained"
           color="primary"

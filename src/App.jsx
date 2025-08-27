@@ -1,15 +1,16 @@
 import { RouterProvider } from 'react-router';
 
 import AppProviders from './components/AppProviders';
-import AppRoutes from './Routes/AppRoutes';
 
 import './index.css';
+
+import router from './Routes/Router';
 
 const App = () => {
   return (
     <>
       <AppProviders>
-        <RouterProvider router={AppRoutes} />
+        <RouterProvider router={router} />
       </AppProviders>
     </>
   );

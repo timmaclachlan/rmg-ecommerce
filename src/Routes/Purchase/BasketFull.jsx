@@ -11,6 +11,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useBasket } from '../../hooks/useBasket';
+import { Link } from 'react-router';
 
 function BasketFull() {
   const { basketItems, deleteItem } = useBasket();
@@ -37,12 +38,12 @@ function BasketFull() {
       <Divider sx={{ my: 2 }} />
 
       <Stack direction="row" spacing={2} flexWrap="wrap">
-        <a href="/store" style={{ textDecoration: 'none' }}>
+        <Link to="/store" style={{ textDecoration: 'none' }}>
           Go to Products
-        </a>
-        <a href="/purchase/checkout" style={{ textDecoration: 'none' }}>
-          Go to Checkout
-        </a>
+        </Link>
+        <Link to="/purchase/checkout" style={{ textDecoration: 'none' }}>
+          Proceed to Checkout
+        </Link>
       </Stack>
     </Paper>
   );

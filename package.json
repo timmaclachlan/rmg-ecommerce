@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite --open /store",
     "build": "vite build",
     "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "eslint src --ext .js,.jsx --fix",
