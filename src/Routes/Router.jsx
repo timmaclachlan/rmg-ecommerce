@@ -16,6 +16,8 @@ import StoreNotFound from './Store/Products/StoreNotFound';
 import BasketFull from './Purchase/BasketFull';
 import Checkout from './Purchase/Checkout';
 import OrderConfirmation from './Purchase/OrderConfirmation';
+import ProductErrorBoundary from './Store/Products/ProductErrorBoundary';
+import CategoryErrorBoundary from './Store/CategoryErrorBoundary';
 
 import { productsPageLoader, productLoader } from '../loaders/loaders';
 import { checkoutAction } from '../actions/actions';
@@ -29,11 +31,13 @@ const router = createBrowserRouter(
           path=":category"
           element={<CategoryPage />}
           loader={productsPageLoader}
+          errorElement={<CategoryErrorBoundary />}
         />
         <Route
           path="products/:id?/:category?"
           element={<ProductPage />}
           loader={productLoader}
+          errorElement={<ProductErrorBoundary />}
         />
         <Route path="products/notfound" element={<StoreNotFound />} />
       </Route>

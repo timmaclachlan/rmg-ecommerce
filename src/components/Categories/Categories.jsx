@@ -13,8 +13,8 @@ function Categories({ categories, onCategoriesClick: onClick }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleSelect = (category) => {
-    setSelectedCategory(category);
-    onClick(category);
+    setSelectedCategory(category.slug);
+    onClick(category.slug);
   };
 
   return (
@@ -58,7 +58,7 @@ function Categories({ categories, onCategoriesClick: onClick }) {
               },
             }}
           >
-            <ListItemText primary={category} />
+            <ListItemText primary={category.name} />
           </ListItemButton>
         ))}
       </List>
