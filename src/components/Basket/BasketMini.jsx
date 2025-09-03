@@ -1,12 +1,24 @@
-import { useBasket } from "../../hooks/useBasket";
+import { IconButton, Badge } from '@mui/material';
+import { Link } from 'react-router';
+
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import { useBasket } from '../../hooks/useBasket';
 
 function BasketMini() {
   const { basketItems } = useBasket();
 
   return (
-    <div>
-      <h4>Number of Items: {basketItems.length}</h4>
-    </div>
+    <IconButton
+      aria-label="shopping cart"
+      sx={{ pr: 4, pt: 2 }}
+      component={Link}
+      to="/purchase/basket"
+    >
+      <Badge badgeContent={basketItems.length} color="error">
+        <ShoppingCartIcon sx={{ color: '#ffffff' }} />
+      </Badge>
+    </IconButton>
   );
 }
 

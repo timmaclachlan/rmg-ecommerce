@@ -2,7 +2,6 @@ import { useLoaderData, useNavigate } from 'react-router';
 
 import { Grid, Typography } from '@mui/material';
 
-import BasketMini from './Basket/BasketMini';
 import Products from './Products/Products';
 import Categories from './Categories/Categories';
 
@@ -21,7 +20,6 @@ function HomeContent() {
   return (
     <>
       <Typography variant="caption">Logged in as: {customer.name}</Typography>
-      <BasketMini />
       <Grid container spacing={2}>
         <Grid item xs="auto">
           <Categories

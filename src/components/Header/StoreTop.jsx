@@ -1,4 +1,5 @@
-import { Typography, Box, Stack } from '@mui/material';
+import { Typography, Box } from '@mui/material';
+import BasketMini from '../Basket/BasketMini';
 
 function Header() {
   return (
@@ -16,7 +17,8 @@ function Header() {
     >
       <Typography variant="h6">Free Shipping!</Typography>
       <Typography variant="h6">Free Returns</Typography>
-      <Stack direction="row" spacing={2} alignItems="center"></Stack>
+
+      <BasketMini />
     </Box>
   );
 }
