@@ -21,18 +21,20 @@ function HomeContent() {
     <>
       <Typography variant="caption">Logged in as: {customer.name}</Typography>
       <Grid container spacing={2}>
-        <Grid item xs="auto">
+        <Grid>
           <Categories
             categories={categories}
             onCategoriesClick={handleCategoryClick}
           />
         </Grid>
-        <Grid item xs>
+        <Grid>
           <Products products={products} />
         </Grid>
       </Grid>
     </>
   );
 }
+
+HomeContent.displayName = 'RMG-HomeContent';
 
 export default HomeContent;

@@ -1,18 +1,18 @@
-import { Typography, Box, Stack } from "@mui/material";
+import { Typography, Box, Stack } from '@mui/material';
 
-import ThemeModeSwitch from "./ThemeModeSwitch";
-import ThemeSelector from "./ThemeSelector";
+import ThemeModeSwitch from './ThemeModeSwitch';
+import ThemeSelector from './ThemeSelector';
 
 function Header() {
   return (
     <Box
       component="header"
       sx={(theme) => ({
-        width: "100%",
+        width: '100%',
         p: 2,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         bgcolor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
       })}
@@ -25,5 +25,7 @@ function Header() {
     </Box>
   );
 }
+
+Header.displayName = 'RMG-Header';
 
 export default Header;

@@ -1,7 +1,7 @@
 import { Typography, Box } from '@mui/material';
 import BasketMini from '../Basket/BasketMini';
 
-function Header() {
+function StoreTop() {
   return (
     <Box
       component="header"
@@ -23,4 +23,6 @@ function Header() {
   );
 }
 
-export default Header;
+StoreTop.displayName = 'RMG-StoreTop';
+
+export default StoreTop;

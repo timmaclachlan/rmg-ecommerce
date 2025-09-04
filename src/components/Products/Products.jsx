@@ -125,10 +125,6 @@ function Products({ products }) {
         ))}
       </Stack>
 
-      <Box textAlign="center" mt={5}>
-        <Button href="/purchase/basket">Go to Basket</Button>
-      </Box>
-
       {/* Dialog component */}
       <Dialog
         open={Boolean(selectedItem)}
