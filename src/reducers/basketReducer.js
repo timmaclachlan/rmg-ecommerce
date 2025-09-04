@@ -16,6 +16,18 @@ export function basketReducer(state, action) {
       return state.filter((i) => i.id !== action.payload.id);
     }
 
+    case 'UPDATE_QUANTITY': {
+      const { id, quantity } = action.payload;
+      if (quantity <= 0) {
+        return state.filter((i) => i.id !== id);
+      }
+
+      return state.map((i) => i.id === id ? { ...i, quantity } : i);
+    }
+
+    case 'CLEAR_BASKET':
+      return [];
+
     default:
       return state;
   }
