@@ -25,7 +25,7 @@ export function basketReducer(state, action) {
       return state.map((i) => i.id === id ? { ...i, quantity } : i);
     }
 
-    case 'CLEAR_BASKET':
+    case 'CLEAR_CART':
       return [];
 
     default:
