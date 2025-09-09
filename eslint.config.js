@@ -11,17 +11,19 @@ export default [
     files: ["**/*.{js,jsx}", '**/*.test.js', '**/*.spec.js'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        ecmaFeatures: { jsx: true },
-        sourceType: "module",
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
         describe: 'readonly',
         it: 'readonly',
         expect: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
         jest: 'readonly',
+      },
+      parserOptions: {
+        ecmaVersion: "latest",
+        ecmaFeatures: { jsx: true },
       },
     },
     settings: { react: { version: "18.3" } },
