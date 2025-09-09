@@ -1,6 +1,7 @@
 import { useBasketContext } from "../context/BasketContext";
 import {
-  calculateTotal,
+  calculateTotalForCart,
+  calculateTotalForItem,
   getItemCount,
   getInvalidItems,
 } from '../reducers/basketHelpers';
@@ -23,7 +24,8 @@ export function useBasket() {
     clearBasket,
     updateQuantity,
 
-    getTotal: calculateTotal(basketItems),
+    getTotalForCart: calculateTotalForCart(basketItems),
+    getTotalForItem: (item) => calculateTotalForItem(item),
     getCount: getItemCount(basketItems),
     invalidItems: getInvalidItems(basketItems),
   };

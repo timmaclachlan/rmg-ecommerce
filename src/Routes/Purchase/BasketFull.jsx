@@ -8,19 +8,25 @@ import {
   Divider,
   Stack,
   Button,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
-import { useBasket } from "../../hooks/useBasket";
-import { Link } from "react-router";
+import { useBasket } from '../../hooks/useBasket';
+import { Link } from 'react-router';
 
 function BasketFull() {
-  const { basketItems, deleteItem, clearBasket, updateQuantity, getTotal } =
-    useBasket();
+  const {
+    basketItems,
+    deleteItem,
+    clearBasket,
+    updateQuantity,
+    getTotalForCart,
+    getTotalForItem,
+  } = useBasket();
   return (
-    <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: "auto" }}>
+    <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
       <Typography variant="h5" gutterBottom>
         Your Basket
       </Typography>
@@ -35,7 +41,8 @@ function BasketFull() {
               </IconButton>
             }
           >
-            <ListItemText primary={`${item.quantity} of ${item.title}`} />
+            <ListItemText primary={item.title} />
+            <ListItemText primary={`£${getTotalForItem(item).toFixed(2)}`} />
 
             <Stack direction="row" spacing={1} alignItems="center">
               <IconButton
@@ -55,17 +62,17 @@ function BasketFull() {
       </List>
       <Divider sx={{ my: 2 }} />
       <Typography variant="h6" gutterBottom>
-        Total: £{getTotal.toFixed(2)}
+        Total: £{getTotalForCart.toFixed(2)}
       </Typography>
       <Button variant="outlined" onClick={() => clearBasket()}>
         Clear Basket
       </Button>
 
       <Stack direction="row" spacing={2} flexWrap="wrap">
-        <Link to="/store" style={{ textDecoration: "none" }}>
+        <Link to="/store" style={{ textDecoration: 'none' }}>
           Go to Products
         </Link>
-        <Link to="/purchase/checkout" style={{ textDecoration: "none" }}>
+        <Link to="/purchase/checkout" style={{ textDecoration: 'none' }}>
           Proceed to Checkout
         </Link>
       </Stack>

@@ -1,5 +1,6 @@
 import {
-  calculateTotal,
+  calculateTotalForCart,
+  calculateTotalForItem,
   getItemCount,
   getInvalidItems,
 } from './basketHelpers';
@@ -13,7 +14,12 @@ describe('basketHelpers', () => {
   ];
 
   it('calculates total price', () => {
-    expect(calculateTotal(cart)).toBe(100 * 2 + 50 * 3 + 75 * 0 + 0);
+    expect(calculateTotalForCart(cart)).toBe(100 * 2 + 50 * 3 + 75 * 0 + 0);
+  });
+
+  it('calculates total for single item', () => {
+    const item = { id: 5, price: 200, quantity: 4 };
+    expect(calculateTotalForItem(item)).toBe(200 * 4);
   });
 
   it('counts total quantity', () => {

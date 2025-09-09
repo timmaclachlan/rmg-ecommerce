@@ -1,8 +1,13 @@
 // Calculates total price of all items in the cart
-export function calculateTotal(cart) {
+export function calculateTotalForCart(cart) {
   return cart.reduce((sum, item) => {
     return sum + item.price * item.quantity;
   }, 0);
+}
+
+// Calculates total price for a single item
+export function calculateTotalForItem(item) {
+  return item.price * item.quantity;
 }
 
 // Returns total number of items (sum of quantities)
