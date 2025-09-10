@@ -118,7 +118,7 @@ function Products({ products }) {
                 </Tooltip>
               </Box>
               <Button variant="contained" onClick={() => addItem(item)}>
-                Add to Cart
+                Add to Basket
               </Button>
             </CardActions>
           </Card>

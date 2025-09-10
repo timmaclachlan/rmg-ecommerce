@@ -1,8 +1,8 @@
 export const ADDITEM = 'ADD_ITEM';
 export const DELETEITEM = 'DELETE_ITEM';
 export const UPDATEQUANTITY = 'UPDATE_QUANTITY';
-export const CLEARCART = 'CLEAR_CART';
-export const SETCART = 'SET_CART';
+export const CLEARBASKET = 'CLEAR_BASKET';
+export const SETBASKET = 'SET_BASKET';
 
 export function basketReducer(state, action) {
   switch (action.type) {
@@ -31,10 +31,10 @@ export function basketReducer(state, action) {
       return state.map((i) => i.id === id ? { ...i, quantity } : i);
     }
 
-    case CLEARCART:
+    case CLEARBASKET:
       return [];
 
-    case SETCART:
+    case SETBASKET:
       return action.payload;
 
     default:

@@ -1,11 +1,11 @@
-import { basketReducer, ADDITEM, UPDATEQUANTITY, DELETEITEM, CLEARCART, SETCART } from './basketReducer';
+import { basketReducer, ADDITEM, UPDATEQUANTITY, DELETEITEM, CLEARBASKET, SETBASKET } from './basketReducer';
 
 describe('basketReducer', () => {
   const initialState = [];
 
   const sampleItem = { id: 1, title: 'Synth', price: 299 };
 
-  it('adds a new item to the cart', () => {
+  it('adds a new item to the basket', () => {
     const action = { type: ADDITEM, payload: sampleItem };
     const result = basketReducer(initialState, action);
     expect(result).toEqual([{ ...sampleItem, quantity: 1 }]);
@@ -32,25 +32,25 @@ describe('basketReducer', () => {
     expect(result).toEqual([]);
   });
 
-  it('deletes item from cart', () => {
+  it('deletes item from basket', () => {
     const state = [{ ...sampleItem, quantity: 1 }];
     const action = { type: DELETEITEM, payload: { id: 1 } };
     const result = basketReducer(state, action);
     expect(result).toEqual([]);
   });
 
-  it('clears the cart', () => {
+  it('clears the basket', () => {
     const state = [{ ...sampleItem, quantity: 1 }];
-    const action = { type: CLEARCART };
+    const action = { type: CLEARBASKET };
     const result = basketReducer(state, action);
     expect(result).toEqual([]);
   });
 
-  it('sets cart from payload', () => {
-    const newCart = [{ id: 2, title: 'Drum Machine', quantity: 1 }];
-    const action = { type: SETCART, payload: newCart };
+  it('sets basket from payload', () => {
+    const newBasket = [{ id: 2, title: 'Drum Machine', quantity: 1 }];
+    const action = { type: SETBASKET, payload: newBasket };
     const result = basketReducer(initialState, action);
-    expect(result).toEqual(newCart);
+    expect(result).toEqual(newBasket);
   });
 
   it('returns current state for unknown action', () => {
