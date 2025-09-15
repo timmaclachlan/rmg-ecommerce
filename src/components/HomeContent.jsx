@@ -1,17 +1,13 @@
 import { useLoaderData, useNavigate } from 'react-router';
 
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import Products from './Products/Products';
 import Categories from './Categories/Categories';
-
-import { useCustomer } from '../hooks/useCustomer';
-
+import User from './User/User';
 function HomeContent() {
   const navigate = useNavigate();
   const { categories, products } = useLoaderData();
-
-  const { customer } = useCustomer();
 
   const handleCategoryClick = (category) => {
     navigate(`/store/${category}`);
@@ -19,7 +15,7 @@ function HomeContent() {
 
   return (
     <>
-      <Typography variant="caption">Logged in as: {customer.name}</Typography>
+      <User />
       <Grid container spacing={2}>
         <Grid>
           <Categories
