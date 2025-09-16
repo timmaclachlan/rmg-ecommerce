@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 
 import Products from './Products/Products';
 import Categories from './Categories/Categories';
-import User from './User/User';
+
 function HomeContent() {
   const navigate = useNavigate();
   const { categories, products } = useLoaderData();
@@ -15,7 +15,6 @@ function HomeContent() {
 
   return (
     <>
-      <User />
       <Grid container spacing={2}>
         <Grid>
           <Categories

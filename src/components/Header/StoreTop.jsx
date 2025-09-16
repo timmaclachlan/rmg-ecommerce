@@ -1,5 +1,6 @@
 import { Typography, Box } from '@mui/material';
 import BasketMini from '../Basket/BasketMini';
+import User from '../User/User';
 
 function StoreTop() {
   return (
@@ -18,11 +19,12 @@ function StoreTop() {
       <Typography variant="h6">Free Shipping!</Typography>
       <Typography variant="h6">Free Returns</Typography>
 
-      <BasketMini />
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <BasketMini />
+        <User />
+      </Box>
     </Box>
   );
 }
-
-StoreTop.displayName = 'RMG-StoreTop';
 
 export default StoreTop;

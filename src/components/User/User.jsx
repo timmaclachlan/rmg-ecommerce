@@ -1,49 +1,71 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 
-import { Typography } from '@mui/material';
+import { Typography, IconButton, Menu, MenuItem } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { useCustomer } from '../../hooks/useCustomer';
 import { authReducer, initialAuthState } from '../../reducers/authReducer';
 
 function User() {
-  const { customer } = useCustomer();
   const [state, dispatch] = useReducer(authReducer, initialAuthState);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleLogin = () => {
     dispatch({
       type: 'LOGIN',
       payload: { name: 'Alice', email: 'alice@example.com' },
     });
+    handleMenuClose();
   };
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' });
+    handleMenuClose();
   };
 
-  const handleUpdateProfile = () => {
+  const handleProfile = () => {
     dispatch({
       type: 'UPDATE_PROFILE',
       payload: { name: 'Alice Cooper' },
     });
+    handleMenuClose();
   };
 
-  if (state.isAuthenticated) {
-    return (
-      <div>
-        <Typography variant="caption">
-          Logged in as: {state.user.name}
-        </Typography>
-        <button onClick={handleLogout}>Logout</button>
-        <button onClick={handleUpdateProfile}>Update Profile</button>
-      </div>
-    );
-  }
+  const header = state.isAuthenticated
+    ? `Hello, ${state.user.name}`
+    : 'Not logged in';
+
+  const menuItems = state.isAuthenticated ? (
+    <>
+      <MenuItem onClick={handleProfile}>Profile</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+    </>
+  ) : (
+    <MenuItem onClick={handleLogin}>Login</MenuItem>
+  );
 
   return (
-    <div>
-      <Typography variant="caption">Not logged in</Typography>
-      <button onClick={handleLogin}>Login</button>
-    </div>
+    <>
+      <IconButton onClick={handleMenuOpen}>
+        <AccountCircleIcon fontSize="large" sx={{ color: '#ffffff' }} />
+      </IconButton>
+
+      <Typography variant="caption" sx={{ ml: 1 }}>
+        {header}
+      </Typography>
+
+      <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
+        {menuItems}
+      </Menu>
+    </>
   );
 }
 
