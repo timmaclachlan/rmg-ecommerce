@@ -1,12 +1,13 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 
 import { Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { authReducer, initialAuthState } from '../../reducers/authReducer';
+import { useAuthWithCustomerSync } from '../../hooks/useAuthWithCustomerSync';
 
 function User() {
-  const [state, dispatch] = useReducer(authReducer, initialAuthState);
+  const { authState, dispatch } = useAuthWithCustomerSync();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -39,11 +40,11 @@ function User() {
     handleMenuClose();
   };
 
-  const header = state.isAuthenticated
-    ? `Hello, ${state.user.name}`
+  const header = authState.isAuthenticated
+    ? `Hello, ${authState.user.name}`
     : 'Not logged in';
 
-  const menuItems = state.isAuthenticated ? (
+  const menuItems = authState.isAuthenticated ? (
     <>
       <MenuItem onClick={handleProfile}>Profile</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>

@@ -23,7 +23,7 @@ function authReducer(state, action) {
           : null,
       };
     default:
-      return state;
+      return initialAuthState;
   }
 }
 

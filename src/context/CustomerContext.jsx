@@ -1,14 +1,17 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext } from 'react';
 
 const CustomerContext = createContext();
 
 export function CustomerProvider({ children }) {
   const [customer, setCustomer] = useState({
-    name: "John Doe",
-    email: "john@test2.com",
-    phone: "342344",
+    name: 'John Doe',
+    email: 'john@test2.com',
+    phone: '342344',
     newsletter: false,
-    shipping: "Standard",
+    shipping: 'Standard',
+    user: {
+      isAuthenticated: false,
+    },
   });
 
   return (
@@ -23,7 +26,7 @@ export function useCustomerContext() {
   const context = useContext(CustomerContext);
   if (!context) {
     throw new Error(
-      "useCustomerContext must be used within a CustomerProvider"
+      'useCustomerContext must be used within a CustomerProvider',
     );
   }
   return context;
