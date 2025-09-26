@@ -1,13 +1,26 @@
-import { useLoaderData, useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
 import { Grid } from '@mui/material';
 
 import Products from './Products/Products';
 import Categories from './Categories/Categories';
 
+import { productsPageLoader } from '../loaders/loaders';
+
 function HomeContent() {
   const navigate = useNavigate();
-  const { categories, products } = useLoaderData();
+  const params = useParams();
+  const [data, setData] = useState({ categories: [], products: [] });
+
+  useEffect(() => {
+    const loadData = async () => {
+      const { categories, products } = await productsPageLoader(params);
+      setData({ categories, products });
+    };
+
+    loadData();
+  }, [params]);
 
   const handleCategoryClick = (category) => {
     navigate(`/store/${category}`);
@@ -18,12 +31,12 @@ function HomeContent() {
       <Grid container spacing={2}>
         <Grid>
           <Categories
-            categories={categories}
+            categories={data.categories}
             onCategoriesClick={handleCategoryClick}
           />
         </Grid>
         <Grid>
-          <Products products={products} />
+          <Products products={data.products} />
         </Grid>
       </Grid>
     </>

@@ -21,12 +21,13 @@ export const productLoader = async ({ params }) => {
   }
 };
 
-export const productsPageLoader = async ({params}) => {
+export const productsPageLoader = async (params) => {
+
   const category = params.category;
 
   let categoriesRes, productsRes;
 
-  try {
+try {
     [categoriesRes, productsRes] = await Promise.all([
       axios.get('https://dummyjson.com/products/categories'),
       axios.get(`https://dummyjson.com/products/category/${category}`)
@@ -39,12 +40,12 @@ export const productsPageLoader = async ({params}) => {
   }
 
   // ✅ Now this check won't be caught by the catch block
-  if (productsRes.data.products.length === 0 && category) {
+  if (productsRes.data.length === 0 && category) {
     throw data({ message: `Category "${category}" is empty` }, { status: 404 });
   }
 
   return {
     categories: categoriesRes.data,
-    products: productsRes.data.products,
+    products: productsRes.data,
   };
 };

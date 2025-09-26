@@ -24,6 +24,7 @@ function BasketFull() {
     deleteItem,
     clearBasket,
     updateQuantity,
+    getCount,
     getTotalForBasket,
     getTotalForItem,
   } = useBasket();
@@ -34,7 +35,7 @@ function BasketFull() {
       </Typography>
       <Divider sx={{ mb: 2 }} />
 
-      {basketItems.length === 0 ? (
+      {getCount === 0 ? (
         <Typography variant="body1" sx={{ textAlign: 'center', py: 4 }}>
           Your basket is currently empty. <br />
           <Link to="/store" style={{ textDecoration: 'none' }}>
