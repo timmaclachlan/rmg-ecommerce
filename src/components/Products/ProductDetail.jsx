@@ -1,13 +1,29 @@
-import { useLoaderData, Link } from 'react-router';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router';
+
+import { productLoader } from '../../loaders/loaders';
 
 function ProductDetail() {
-  const product = useLoaderData();
+  const params = useParams();
+  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    const loadData = async () => {
+      const product = await productLoader(params);
+      setData(product);
+    };
+
+    loadData();
+  }, [params]);
+
+  if (!data) {
+    return <div>No product</div>;
+  }
   return (
     <div className="product-detail">
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <span>Price: ${product.price}</span>
+      <h1>{data.name}</h1>
+      <p>{data.description}</p>
+      <span>Price: ${data.price}</span>
 
       <Link to="/store" style={{ textDecoration: 'none' }}>
         Go to Store

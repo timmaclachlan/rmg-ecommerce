@@ -1,8 +1,8 @@
 import { data } from 'react-router';
 import axios from 'axios';
 
-export const productLoader = async ({ params }) => {
-  const { id } = params;
+export const productLoader = async (params) => {
+  const id = params.id;
   if (!id) {
     throw data({ message: 'No product ID provided' }, { status: 400});
   }
@@ -11,11 +11,10 @@ export const productLoader = async ({ params }) => {
   try {
     const response = await axios.get(url);
     return response.data;
+    
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 404) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
         throw data({ message: 'Product not found' }, { status: 404 });
-      }
     }
     throw data({ message: 'Failed to load product' }, { status: 500 });
   }
