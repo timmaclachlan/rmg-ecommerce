@@ -19,7 +19,11 @@ export default [
         expect: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        test: 'readonly',
         jest: 'readonly',
+        only: 'readonly',
       },
       parserOptions: {
         ecmaVersion: "latest",
