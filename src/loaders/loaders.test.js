@@ -1,5 +1,5 @@
 import { server } from '../mocks/server';
-import { productLoader } from './loaders';
+import { productLoader, productsPageLoader } from './loaders';
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -25,4 +25,16 @@ describe('productLoader', () => {
       type: 'DataWithResponseInit'});
   });
 
+});
+
+describe('productsPageLoader', () => {
+  test('returns products and categories for valid category', async () => {
+    const result = await productsPageLoader({ category: 'mens-shirts' });
+     expect(result.products).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ id: 83, title: 'Blue & Black Check Shirt' }),
+        expect.objectContaining({ id: 84, title: 'Gigabyte Aorus Men Tshirt' }),
+      ])
+    );
+  });
 });
