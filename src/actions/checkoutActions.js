@@ -7,4 +7,3 @@ export const checkoutAction = async ({ request }) => {
   // Save customer, trigger confirmation, etc.
   return redirect('/purchase/confirmation');
 }
-

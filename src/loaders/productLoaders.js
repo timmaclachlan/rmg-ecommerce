@@ -1,13 +1,15 @@
 import { data } from 'react-router';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost';
+
 export const productLoader = async (params) => {
   const id = params.id;
   if (!id) {
     throw data({ message: 'No product ID provided' }, { status: 400});
   }
 
-  const url = `https://dummyjson.com/products/${id}`;
+  const url = `/api/products/${id}`;
   try {
     const response = await axios.get(url);
     return response.data;
@@ -28,8 +30,8 @@ export const productsPageLoader = async (params) => {
 
 try {
     [categoriesRes, productsRes] = await Promise.all([
-      axios.get('https://dummyjson.com/products/categories'),
-      axios.get(`https://dummyjson.com/products/category/${category}`)
+      axios.get('/api/products/categories'),
+      axios.get(`/api/products/category/${category}`)
     ]);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {

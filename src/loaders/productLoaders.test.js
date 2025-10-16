@@ -1,5 +1,5 @@
 import { server } from '../mocks/server';
-import { productLoader, productsPageLoader } from './loaders';
+import { productLoader, productsPageLoader } from './productLoaders';
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
