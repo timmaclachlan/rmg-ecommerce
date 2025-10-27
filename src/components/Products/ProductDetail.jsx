@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
 
-import { productLoader } from '../../loaders/loaders';
+import { productLoader } from '../../loaders/productLoaders';
 
 function ProductDetail() {
   const params = useParams();

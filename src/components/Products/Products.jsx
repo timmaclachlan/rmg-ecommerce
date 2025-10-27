@@ -39,10 +39,6 @@ function Products({ products }) {
 
   return (
     <Box sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
-        Shop Products
-      </Typography>
-
       <Stack spacing={3}>
         {products.map((item) => (
           <Card

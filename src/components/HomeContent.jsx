@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import Products from './Products/Products';
 import Categories from './Categories/Categories';
 
-import { productsPageLoader } from '../loaders/loaders';
+import { productsPageLoader } from '../loaders/productLoaders';
 
 function HomeContent() {
   const navigate = useNavigate();
   const params = useParams();
-  const [data, setData] = useState({ categories: [], products: [] });
+  const [data, setData] = useState({
+    categories: [],
+    products: [],
+  });
 
   useEffect(() => {
     const loadData = async () => {
@@ -26,6 +29,10 @@ function HomeContent() {
     navigate(`/store/${category}`);
   };
 
+  const categoryName =
+    data.categories.find((t) => t.slug === params.category)?.name ||
+    'All Products';
+
   return (
     <>
       <Grid container spacing={2}>
@@ -36,6 +43,9 @@ function HomeContent() {
           />
         </Grid>
         <Grid>
+          <Typography variant="h4" gutterBottom>
+            {categoryName}
+          </Typography>
           <Products products={data.products} />
         </Grid>
       </Grid>
