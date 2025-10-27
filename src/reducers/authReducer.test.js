@@ -1,4 +1,4 @@
-import { authReducer, initialAuthState } from './authReducer';
+import { authReducer, initialAuthState, LOGIN, LOGOUT, UPDATE_PROFILE } from './authReducer';
 
 describe('authReducer', () => {
   it('should return initial state by default', () => {
@@ -9,7 +9,7 @@ describe('authReducer', () => {
 
   it('should handle LOGIN action', () => {
     const action = {
-      type: 'LOGIN',
+      type: LOGIN,
       payload: { name: 'Alice', email: 'alice@example.com' },
     };
     const state = authReducer(initialAuthState, action);
@@ -24,7 +24,7 @@ describe('authReducer', () => {
       isAuthenticated: true,
       user: { name: 'Alice', email: 'alice@example.com' },
     };
-    const action = { type: 'LOGOUT' };
+    const action = { type: LOGOUT };
     const state = authReducer(loggedInState, action);
     expect(state).toEqual({
       isAuthenticated: false,
@@ -38,7 +38,7 @@ describe('authReducer', () => {
       user: { name: 'Alice', email: 'alice@example.com' },
     };
     const action = {
-      type: 'UPDATE_PROFILE',
+      type: UPDATE_PROFILE,
       payload: { name: 'Alice Cooper' },
     };
     const state = authReducer(currentState, action);
@@ -54,7 +54,7 @@ describe('authReducer', () => {
       user: null,
     };
     const action = {
-      type: 'UPDATE_PROFILE',
+      type: UPDATE_PROFILE,
       payload: { name: 'Ghost' },
     };
     const state = authReducer(currentState, action);
