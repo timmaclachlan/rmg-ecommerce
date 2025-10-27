@@ -18,7 +18,7 @@ import OrderConfirmation from './Purchase/OrderConfirmation';
 import ProductErrorBoundary from './Store/Products/ProductErrorBoundary';
 import CategoryErrorBoundary from './Store/CategoryErrorBoundary';
 
-import { checkoutAction } from '../actions/actions';
+import { checkoutAction } from '../actions/checkoutActions';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
