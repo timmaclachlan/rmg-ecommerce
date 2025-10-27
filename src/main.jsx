@@ -15,7 +15,7 @@ async function enableMocking() {
   // once the Service Worker is up and ready to intercept requests.
   return worker.start({
     quiet: false, // logs all intercepted requests
-    onUnhandledRequest: 'warn', // great for debugging
+    onUnhandledRequest: 'bypass', // stop reporting unhandled requests
   });
 }
 
