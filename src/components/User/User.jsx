@@ -44,14 +44,28 @@ function User() {
     ? `Hello, ${authState.user.name}`
     : 'Not logged in';
 
-  const menuItems = authState.isAuthenticated ? (
-    <>
-      <MenuItem onClick={handleProfile}>Profile</MenuItem>
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-    </>
-  ) : (
-    <MenuItem onClick={handleLogin}>Login</MenuItem>
-  );
+  function getMenuItems() {
+    var items = [];
+    if (authState.isAuthenticated) {
+      items.push(
+        <MenuItem key="profile" onClick={handleProfile}>
+          Profile
+        </MenuItem>,
+      );
+      items.push(
+        <MenuItem key="logout" onClick={handleLogout}>
+          Logout
+        </MenuItem>,
+      );
+    } else {
+      items.push(
+        <MenuItem key="login" onClick={handleLogin}>
+          Login
+        </MenuItem>,
+      );
+    }
+    return items;
+  }
 
   return (
     <>
@@ -64,7 +78,7 @@ function User() {
       </Typography>
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
-        {menuItems}
+        {getMenuItems()}
       </Menu>
     </>
   );
