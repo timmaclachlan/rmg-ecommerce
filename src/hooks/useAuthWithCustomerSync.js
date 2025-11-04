@@ -1,17 +1,34 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { useCustomer } from '../hooks/useCustomer';
 import { authReducer } from '../reducers/authReducer';
 
 export function useAuthWithCustomerSync() {
-  const { customer, updateCustomer } = useCustomer();
-  const [authState, dispatchAuth] = useReducer(authReducer, customer.user);
+  const { customer, login, logout, updateCustomer } = useCustomer();
+
+  const [authState, dispatchAuth] = useReducer(
+    authReducer,
+    undefined,
+    () => customer?.user ?? { isAuthenticated: false },
+  );
+
+  useEffect(() => {
+    if (customer?.user?.isAuthenticated) {
+      dispatchAuth({ type: 'LOGIN', payload: customer });
+    }
+  }, [customer]);
 
   function dispatch(action) {
-    const nextState = authReducer(authState, action);
+    if (action.type === 'LOGIN') {
+      login(action.payload.id); // triggers API fetch
+    }
 
-    // Sync user to customer context
-    if ('user' in nextState) {
-      updateCustomer({...customer, user: nextState.user});
+    if (action.type === 'LOGOUT') {
+      logout();
+    }
+
+    if (action.type === 'UPDATE_PROFILE' && customer) {
+      const updatedUser = { ...customer, ...action.payload };
+      updateCustomer(updatedUser);
     }
 
     dispatchAuth(action);

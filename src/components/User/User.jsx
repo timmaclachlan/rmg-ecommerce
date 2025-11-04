@@ -20,10 +20,7 @@ function User() {
   };
 
   const handleLogin = () => {
-    dispatch({
-      type: 'LOGIN',
-      payload: { name: 'Alice', email: 'alice@example.com' },
-    });
+    dispatch({ type: 'LOGIN', payload: { id: 1 } });
     handleMenuClose();
   };
 
@@ -41,30 +38,24 @@ function User() {
   };
 
   const header = authState.isAuthenticated
-    ? `Hello, ${authState.user.name}`
+    ? `Hello, ${authState.user?.name ?? 'User'}`
     : 'Not logged in';
 
   function getMenuItems() {
-    var items = [];
-    if (authState.isAuthenticated) {
-      items.push(
-        <MenuItem key="profile" onClick={handleProfile}>
-          Profile
-        </MenuItem>,
-      );
-      items.push(
-        <MenuItem key="logout" onClick={handleLogout}>
-          Logout
-        </MenuItem>,
-      );
-    } else {
-      items.push(
-        <MenuItem key="login" onClick={handleLogin}>
-          Login
-        </MenuItem>,
-      );
-    }
-    return items;
+    return authState.isAuthenticated
+      ? [
+          <MenuItem key="profile" onClick={handleProfile}>
+            Profile
+          </MenuItem>,
+          <MenuItem key="logout" onClick={handleLogout}>
+            Logout
+          </MenuItem>,
+        ]
+      : [
+          <MenuItem key="login" onClick={handleLogin}>
+            Login
+          </MenuItem>,
+        ];
   }
 
   return (

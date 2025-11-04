@@ -6,6 +6,7 @@ import raw from './db.json';
 
 export const db = {
   baskets: raw.baskets || [],
+  customers: raw.customers || [],
   products: raw.products || [],
-  categories: raw.categories || []
+  categories: raw.categories || [],
 };

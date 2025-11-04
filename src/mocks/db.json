@@ -1,7 +1,21 @@
 {
-  "carts":[],
+  "baskets":[],
 
-  "categories": 
+  "customers": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@test2.com",
+      "phone": "342344",
+      "newsletter": false,
+      "shipping": "Standard",
+      "user": {
+        "isAuthenticated": false
+      }
+    }
+  ],
+
+"categories": 
 [
   {
     "slug": "beauty",

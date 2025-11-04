@@ -3,9 +3,11 @@ import { setupWorker } from 'msw';
 import { basketHandlers } from './handlers/basketHandlers';
 import { productHandlers } from './handlers/productHandlers';
 import { categoryHandlers } from './handlers/categoryHandlers';
+import { customerHandlers } from './handlers/customerHandlers';
 
 export const worker = setupWorker(
   ...basketHandlers,
   ...productHandlers,
-  ...categoryHandlers
+  ...categoryHandlers,
+  ...customerHandlers,
 );

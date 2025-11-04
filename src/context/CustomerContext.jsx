@@ -1,21 +1,14 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useContext } from 'react';
+
+import { useCustomer } from '../hooks/useCustomer';
 
 const CustomerContext = createContext();
 
 export function CustomerProvider({ children }) {
-  const [customer, setCustomer] = useState({
-    name: 'John Doe',
-    email: 'john@test2.com',
-    phone: '342344',
-    newsletter: false,
-    shipping: 'Standard',
-    user: {
-      isAuthenticated: false,
-    },
-  });
+  const { customer, updateCustomer } = useCustomer();
 
   return (
-    <CustomerContext.Provider value={{ customer, setCustomer }}>
+    <CustomerContext.Provider value={{ customer, setCustomer: updateCustomer }}>
       {children}
     </CustomerContext.Provider>
   );
