@@ -1,6 +1,5 @@
 // /mocks/handlers/basketHandlers.js
 import { rest } from 'msw';
-import { db } from '../db';
 
 import {
   getBasketByUserId,
