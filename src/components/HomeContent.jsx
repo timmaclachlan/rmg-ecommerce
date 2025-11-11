@@ -4,17 +4,22 @@ import { Typography, Box, Paper } from '@mui/material';
 
 import Products from './Products/Products';
 import Categories from './Categories/Categories';
-
 import { productsPageLoader } from '../loaders/productLoaders';
 
 function HomeContent() {
   const navigate = useNavigate();
   const params = useParams();
+
   const [data, setData] = useState({ categories: [], products: [] });
 
-  // For dynamic layout demo
+  // For dynamic grid columns
   const containerRef = useRef(null);
   const [columns, setColumns] = useState(3);
+
+  // For sticky sidebar demo
+  const sidebarRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
+  const [sidebarTop, setSidebarTop] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -24,19 +29,42 @@ function HomeContent() {
     loadData();
   }, [params]);
 
-  // Dynamically calculate grid columns based on container width
+  // --- useLayoutEffect 1: Dynamic grid columns ---
   useLayoutEffect(() => {
     const updateColumns = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        const newColumns = Math.floor(width / 260); // approx width per card
-        setColumns(Math.max(newColumns, 1)); // at least 1 column
+        const newColumns = Math.floor(width / 260);
+        setColumns(Math.max(newColumns, 1));
       }
     };
     updateColumns();
     window.addEventListener('resize', updateColumns);
     return () => window.removeEventListener('resize', updateColumns);
   }, []);
+
+  // --- useLayoutEffect 2: Sticky categories sidebar ---
+  useLayoutEffect(() => {
+    if (!sidebarRef.current) return;
+
+    // Measure where the sidebar starts
+    const sidebarOffsetTop =
+      sidebarRef.current.getBoundingClientRect().top + window.scrollY;
+    setSidebarTop(sidebarOffsetTop);
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      // Toggle sticky mode once we scroll past the sidebar’s top
+      if (scrollY > sidebarTop - 20) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sidebarTop]);
 
   const handleCategoryClick = (category) => {
     navigate(`/store/${category}`);
@@ -48,28 +76,33 @@ function HomeContent() {
 
   return (
     <Box sx={{ display: 'flex', p: 2, gap: 2 }}>
-      {/* LEFT COLUMN - Categories */}
-      <Paper
-        elevation={2}
+      {/* LEFT COLUMN - Sticky Categories */}
+      <Box
+        ref={sidebarRef}
         sx={{
-          width: 300,
+          width: 250,
           flexShrink: 0,
-          p: 2,
-          height: 'fit-content',
+          alignSelf: 'flex-start',
+          position: isSticky ? 'fixed' : 'relative',
+          top: isSticky ? 20 : 'auto',
+          zIndex: 10,
+          transition: 'all 0.2s ease',
         }}
       >
-        <Categories
-          categories={data.categories}
-          onCategoriesClick={handleCategoryClick}
-        />
-      </Paper>
+        <Paper elevation={2} sx={{ p: 2 }}>
+          <Categories
+            categories={data.categories}
+            onCategoriesClick={handleCategoryClick}
+          />
+        </Paper>
+      </Box>
 
-      {/* RIGHT COLUMN - Products */}
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      {/* RIGHT COLUMN - Products Grid */}
+      <Box sx={{ flex: 1, ml: isSticky ? '270px' : 0 }}>
         <Typography variant="h4" gutterBottom>
           {categoryName}
         </Typography>
-        <Box ref={containerRef} sx={{ flex: 1 }}>
+        <Box ref={containerRef}>
           <Products products={data.products} columns={columns} />
         </Box>
       </Box>
@@ -78,5 +111,4 @@ function HomeContent() {
 }
 
 HomeContent.displayName = 'RMG-HomeContent';
-
 export default HomeContent;
