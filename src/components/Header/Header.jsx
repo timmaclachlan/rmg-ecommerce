@@ -2,6 +2,7 @@ import { Typography, Box, Stack } from '@mui/material';
 
 import ThemeModeSwitch from './ThemeModeSwitch';
 import ThemeSelector from './ThemeSelector';
+import { Link } from 'react-router';
 
 function Header() {
   return (
@@ -17,7 +18,10 @@ function Header() {
         color: theme.palette.primary.contrastText,
       })}
     >
-      <Typography variant="h6">Our Store</Typography>
+      <Link to="/store" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Typography variant="h6">Our Store</Typography>
+      </Link>
+
       <Stack direction="row" spacing={2} alignItems="center">
         <ThemeSelector />
         <ThemeModeSwitch />
