@@ -7,7 +7,7 @@ import {
 
 export const customerHandlers = [
   // GET customer
-  rest.get('http://localhost/api/customer/:customerId', (req, res, ctx) => {
+  rest.get('/api/customer/:customerId', (req, res, ctx) => {
     console.log('MSW intercepted GET /api/customer');
     const { customerId } = req.params;
     const customer = getCustomerById(customerId);
@@ -17,7 +17,7 @@ export const customerHandlers = [
   }),
 
   // PUT customer
-  rest.put('http://localhost/api/customer', async (req, res, ctx) => {
+  rest.put('/api/customer', async (req, res, ctx) => {
     console.log('MSW intercepted PUT /api/customer');
     const updatedCustomer = await req.json();
     const result = updateCustomer(updatedCustomer);

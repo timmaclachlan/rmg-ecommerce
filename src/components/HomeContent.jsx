@@ -72,7 +72,7 @@ function HomeContent() {
 
   const categoryName =
     data.categories.find((t) => t.slug === params.category)?.name ||
-    'All Products';
+    'Special Offers';
 
   return (
     <Box sx={{ display: 'flex', p: 2, gap: 2 }}>

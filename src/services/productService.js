@@ -7,3 +7,10 @@ export function getProductById(id) {
 export function getProductsByCategory(categoryId) {
   return db.products.filter((p) => p.category === categoryId);
 }
+
+export const getProductsOnSale = () => {
+  const res = db.products.filter(
+    (p) => p.discountPercentage && p.discountPercentage > 0,
+  );
+  return res;
+};

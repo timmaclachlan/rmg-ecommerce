@@ -1,17 +1,14 @@
 import { data } from 'react-router';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost';
-
 export const productLoader = async (params) => {
   const id = params.id;
   if (!id) {
     throw data({ message: 'No product ID provided' }, { status: 400 });
   }
 
-  const url = `/api/products/${id}`;
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(`/api/products/${id}`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -24,34 +21,35 @@ export const productLoader = async (params) => {
 export const productsPageLoader = async (params) => {
   const category = params.category;
 
-  let categoriesRes = null;
-  let productsRes = null;
-
   try {
-    // always request categories
-    const requests = [axios.get('/api/categories')];
+    // Always load categories
+    const categoriesRes = await axios.get('/api/categories');
+
+    let productsRes;
 
     if (category) {
-      // after getting category, request products in that category
-      requests.push(axios.get(`/api/products/category/${category}`));
+      console.log(`Loading products in category: ${category}`);
+      productsRes = await axios.get(`/api/products/category/${category}`);
+    } else {
+      console.log('No category selected — loading products on sale');
+      productsRes = await axios.get('/api/products/onsale');
     }
 
-    const responses = await Promise.all(requests);
-    categoriesRes = responses[0];
-    productsRes = category ? responses[1] : null;
+    if (category && productsRes.data.length === 0) {
+      throw data(
+        { message: `Category "${category}" is empty` },
+        { status: 404 },
+      );
+    }
+
+    return {
+      categories: categoriesRes.data,
+      products: productsRes.data,
+    };
   } catch (error) {
     throw data(
       { message: 'Failed to load data: ' + error.message },
       { status: 500 },
     );
   }
-
-  if (category && productsRes?.data?.length === 0) {
-    throw data({ message: `Category "${category}" is empty` }, { status: 404 });
-  }
-
-  return {
-    categories: categoriesRes.data,
-    products: productsRes?.data ?? [],
-  };
 };
