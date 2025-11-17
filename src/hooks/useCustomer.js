@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost';
-
 export function useCustomer() {
   const [customer, setCustomer] = useState(null);
 
