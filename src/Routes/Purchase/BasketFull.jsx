@@ -9,7 +9,6 @@ import {
   Stack,
   Button,
   Box,
-  Chip,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -17,6 +16,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 import { useBasket } from '../../hooks/useBasket';
 import { Link } from 'react-router';
+
+import ProductPrice from '../../components/Products/ProductPrice';
 
 function BasketFull() {
   const {
@@ -78,44 +79,10 @@ function BasketFull() {
                         {item.title}
                       </Typography>
 
-                      <Typography
-                        variant="body1"
-                        fontWeight={700}
-                        color="primary"
-                      >
-                        £{item.price.toFixed(2)} each
-                      </Typography>
-
-                      {/* Discount Display */}
-                      {item.discountPercentage > 0 && (
-                        <Stack direction="row" spacing={1} alignItems="center">
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              textDecoration: 'line-through',
-                              color: 'text.secondary',
-                            }}
-                          >
-                            £{item.price.toFixed(2)}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="success.main"
-                            fontWeight={600}
-                          >
-                            £
-                            {(
-                              item.price *
-                              (1 - item.discountPercentage / 100)
-                            ).toFixed(2)}
-                          </Typography>
-                          <Chip
-                            label={`-${item.discountPercentage}%`}
-                            color="success"
-                            size="small"
-                          />
-                        </Stack>
-                      )}
+                      <ProductPrice
+                        discountPercentage={item.discountPercentage}
+                        price={item.price}
+                      />
                     </Stack>
                   </Grid>
 

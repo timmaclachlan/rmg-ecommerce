@@ -1,14 +1,7 @@
-import {
-  Box,
-  Typography,
-  Stack,
-  Divider,
-  Button,
-  Avatar,
-  Chip,
-} from '@mui/material';
+import { Box, Typography, Stack, Divider, Button, Avatar } from '@mui/material';
 import { useBasket } from '../../hooks/useBasket';
 import { Link } from 'react-router';
+import ProductPrice from '../Products/ProductPrice';
 
 export default function BasketPopup() {
   const { basketItems, getTotalForBasket } = useBasket();
@@ -70,43 +63,11 @@ export default function BasketPopup() {
                 </Typography>
 
                 {/* Price section */}
-                <Stack direction="row" spacing={0.5} alignItems="center">
-                  {hasDiscount && (
-                    <>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          textDecoration: 'line-through',
-                          color: 'text.disabled',
-                        }}
-                      >
-                        £{item.price.toFixed(2)}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        color="success.main"
-                        fontWeight={600}
-                      >
-                        £{discountedPrice.toFixed(2)}
-                      </Typography>
-                      <Chip
-                        label={`-${item.discountPercentage}%`}
-                        color="success"
-                        size="small"
-                        sx={{ height: 16, fontSize: '0.65rem' }}
-                      />
-                    </>
-                  )}
-                  {!hasDiscount && (
-                    <Typography
-                      variant="caption"
-                      color="text.primary"
-                      fontWeight={600}
-                    >
-                      £{item.price.toFixed(2)}
-                    </Typography>
-                  )}
-                </Stack>
+                <ProductPrice
+                  discountPercentage={item.discountPercentage}
+                  price={item.price}
+                  variant="caption"
+                />
               </Box>
 
               {/* Line total on the right */}

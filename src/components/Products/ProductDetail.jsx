@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
 
+import ProductPrice from './ProductPrice';
+
 import { productLoader } from '../../loaders/productLoaders';
 
 function ProductDetail() {
@@ -23,7 +25,10 @@ function ProductDetail() {
     <div className="product-detail">
       <h1>{data.name}</h1>
       <p>{data.description}</p>
-      <span>Price: ${data.price}</span>
+      <ProductPrice
+        discountPercentage={data.discountPercentage}
+        price={data.price}
+      />
 
       <Link to="/store" style={{ textDecoration: 'none' }}>
         Go to Store

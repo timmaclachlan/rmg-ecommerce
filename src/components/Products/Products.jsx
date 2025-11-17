@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
+import ProductPrice from './ProductPrice';
 
 import { useBasket } from '../../hooks/useBasket';
 
@@ -85,9 +86,10 @@ function Products({ products, columns }) {
               <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                 {item.description || 'No description available.'}
               </Typography>
-              <Typography variant="body1" color="primary">
-                £{item.price.toFixed(2)}
-              </Typography>
+              <ProductPrice
+                discountPercentage={item.discountPercentage}
+                price={item.price}
+              />
             </CardContent>
           </CardActionArea>
 

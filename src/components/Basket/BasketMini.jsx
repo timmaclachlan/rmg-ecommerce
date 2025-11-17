@@ -65,7 +65,7 @@ export default function BasketMini() {
             elevation={6}
             sx={{
               p: 2,
-              width: 300,
+              width: 350,
               maxHeight: 400,
               overflowY: 'auto',
               borderRadius: 2,
