@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router';
 
 import StoreTop from '../../components/Header/StoreTop';
@@ -12,11 +13,17 @@ function Footer() {
 }
 
 function StoreLayout() {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <>
       <StoreTop />
-      <Header />
-      <Outlet />
+      <Header
+        onSearch={(value) => {
+          setSearchTerm(value);
+        }}
+      />
+      <Outlet context={{ searchTerm }} />
       <Footer />
     </>
   );

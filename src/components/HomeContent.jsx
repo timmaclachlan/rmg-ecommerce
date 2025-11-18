@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useOutletContext } from 'react-router';
 import { Typography, Box, Paper } from '@mui/material';
 
 import Products from './Products/Products';
@@ -7,10 +7,27 @@ import Categories from './Categories/Categories';
 import { productsPageLoader } from '../loaders/productLoaders';
 
 function HomeContent() {
+  const { searchTerm } = useOutletContext();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   const navigate = useNavigate();
   const params = useParams();
 
   const [data, setData] = useState({ categories: [], products: [] });
+
+  // 🔍 useEffect reacts whenever searchRef.current changes
+  useEffect(() => {
+    let results = data.products;
+
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      results = data.products.filter((p) =>
+        p.title.toLowerCase().includes(term),
+      );
+    }
+
+    setFilteredProducts(results);
+  }, [searchTerm, data.products]);
 
   // For dynamic grid columns
   const containerRef = useRef(null);
@@ -103,7 +120,7 @@ function HomeContent() {
           {categoryName}
         </Typography>
         <Box ref={containerRef}>
-          <Products products={data.products} columns={columns} />
+          <Products products={filteredProducts} columns={columns} />
         </Box>
       </Box>
     </Box>
