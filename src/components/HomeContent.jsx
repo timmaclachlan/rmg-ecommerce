@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { useNavigate, useParams, useOutletContext } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { Typography, Box, Paper } from '@mui/material';
 
 import Products from './Products/Products';
@@ -7,11 +7,12 @@ import Categories from './Categories/Categories';
 import { productsPageLoader } from '../loaders/productLoaders';
 
 function HomeContent() {
-  const { searchTerm } = useOutletContext();
+  const [params] = useSearchParams();
+  const searchTerm = params.get('search') || '';
+
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const navigate = useNavigate();
-  const params = useParams();
 
   const [data, setData] = useState({ categories: [], products: [] });
 

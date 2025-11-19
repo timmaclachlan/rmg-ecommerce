@@ -8,12 +8,14 @@ import {
   InputAdornment,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 import ThemeModeSwitch from './ThemeModeSwitch';
 import ThemeSelector from './ThemeSelector';
 
-function Header({ onSearch }) {
+function Header() {
+  // eslint-disable-next-line no-unused-vars
+  const [_params, setParams] = useSearchParams();
   const inputRef = useRef(null);
 
   // auto-focus the search bar when header loads
@@ -24,7 +26,7 @@ function Header({ onSearch }) {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       const value = inputRef.current?.value ?? '';
-      if (onSearch) onSearch(value);
+      setParams({ search: value });
     }
   };
 
