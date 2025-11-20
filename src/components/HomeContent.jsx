@@ -8,27 +8,10 @@ import { productsPageLoader } from '../loaders/productLoaders';
 
 function HomeContent() {
   const [params] = useSearchParams();
-  const searchTerm = params.get('search') || '';
-
-  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const navigate = useNavigate();
 
   const [data, setData] = useState({ categories: [], products: [] });
-
-  // 🔍 useEffect reacts whenever searchRef.current changes
-  useEffect(() => {
-    let results = data.products;
-
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      results = data.products.filter((p) =>
-        p.title.toLowerCase().includes(term),
-      );
-    }
-
-    setFilteredProducts(results);
-  }, [searchTerm, data.products]);
 
   // For dynamic grid columns
   const containerRef = useRef(null);
@@ -121,7 +104,7 @@ function HomeContent() {
           {categoryName}
         </Typography>
         <Box ref={containerRef}>
-          <Products products={filteredProducts} columns={columns} />
+          <Products products={data.products} columns={columns} />
         </Box>
       </Box>
     </Box>

@@ -19,7 +19,8 @@ export const productLoader = async (params) => {
 };
 
 export const productsPageLoader = async (params) => {
-  const category = params.category;
+  const searchTerm = params.search || '';
+  const category = params.category || '';
 
   try {
     // Always load categories
@@ -27,7 +28,12 @@ export const productsPageLoader = async (params) => {
 
     let productsRes;
 
-    if (category) {
+    if (searchTerm) {
+      console.log(`Loading products with search term: ${searchTerm}`);
+      productsRes = await axios.get(
+        `/api/products?search=${encodeURIComponent(searchTerm)}`,
+      );
+    } else if (category) {
       console.log(`Loading products in category: ${category}`);
       productsRes = await axios.get(`/api/products/category/${category}`);
     } else {

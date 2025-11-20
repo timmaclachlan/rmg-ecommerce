@@ -5,6 +5,7 @@ import {
   getProductById,
   getProductsByCategory,
   getProductsOnSale,
+  getProductsBySearchTerm,
 } from '../../services/productService';
 
 export const productHandlers = [
@@ -39,6 +40,21 @@ export const productHandlers = [
       return res(
         ctx.status(404),
         ctx.json({ error: 'No products found in this category' }),
+      );
+    }
+    return res(ctx.status(200), ctx.json(products));
+  }),
+
+  // Get products by search term
+  rest.get('/api/products', (req, res, ctx) => {
+    const searchTerm = req.url.searchParams.get('search') || '';
+    console.log(`MSW intercepted /api/products?search=${searchTerm}`);
+
+    const products = getProductsBySearchTerm(searchTerm);
+    if (!products || products.length === 0) {
+      return res(
+        ctx.status(404),
+        ctx.json({ error: 'No products found with this search term' }),
       );
     }
     return res(ctx.status(200), ctx.json(products));
