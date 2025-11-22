@@ -18,8 +18,21 @@ export const productLoader = async (params) => {
   }
 };
 
-export const productsPageLoader = async (params) => {
-  const searchTerm = params.search || '';
+export const productsPageLoader = async (args = {}) => {
+  const { request, params = {} } = args;
+
+  // Get searchTerm from search params (RR loader) OR from params (manual test call)
+  let searchTerm = '';
+
+  if (request) {
+    // React Router case
+    const url = new URL(request.url);
+    searchTerm = url.searchParams.get('search') || '';
+  } else if (params.search) {
+    // Manual call case (tests or local use)
+    searchTerm = params.search;
+  }
+
   const category = params.category || '';
 
   try {
