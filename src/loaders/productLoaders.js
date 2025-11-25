@@ -19,7 +19,7 @@ export const productLoader = async (params) => {
 };
 
 export const productsPageLoader = async (args = {}) => {
-  const { request, params = {} } = args;
+  const { request, search, params = {} } = args;
 
   // Get searchTerm from search params (RR loader) OR from params (manual test call)
   let searchTerm = '';
@@ -28,8 +28,10 @@ export const productsPageLoader = async (args = {}) => {
     // React Router case
     const url = new URL(request.url);
     searchTerm = url.searchParams.get('search') || '';
+  } else if (search !== undefined) {
+    // Manual call from HomeContent
+    searchTerm = search;
   } else if (params.search) {
-    // Manual call case (tests or local use)
     searchTerm = params.search;
   }
 

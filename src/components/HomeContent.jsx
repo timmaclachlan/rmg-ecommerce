@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams, useParams } from 'react-router';
 import { Typography, Box, Paper } from '@mui/material';
 
 import Products from './Products/Products';
@@ -7,7 +7,8 @@ import Categories from './Categories/Categories';
 import { productsPageLoader } from '../loaders/productLoaders';
 
 function HomeContent() {
-  const [params] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const params = useParams();
 
   const navigate = useNavigate();
 
@@ -24,11 +25,17 @@ function HomeContent() {
 
   useEffect(() => {
     const loadData = async () => {
-      const { categories, products } = await productsPageLoader(params);
+      const search = searchParams.get('search') || '';
+
+      const { categories, products } = await productsPageLoader({
+        params,
+        search,
+      });
+
       setData({ categories, products });
     };
     loadData();
-  }, [params]);
+  }, [params, searchParams]);
 
   // --- useLayoutEffect 1: Dynamic grid columns ---
   useLayoutEffect(() => {
