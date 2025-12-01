@@ -3,10 +3,13 @@ import { useNavigate, useSearchParams, useParams } from 'react-router';
 import { Typography, Box, Paper } from '@mui/material';
 
 import Products from './Products/Products';
+import ProductsSkeleton from './Products/ProductsSkeleton';
 import Categories from './Categories/Categories';
 import { productsPageLoader } from '../loaders/productLoaders';
+import CategoriesSkeleton from './Categories/CategoriesSkeleton';
 
 function HomeContent() {
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const params = useParams();
 
@@ -26,12 +29,12 @@ function HomeContent() {
   useEffect(() => {
     const loadData = async () => {
       const search = searchParams.get('search') || '';
-
+      setIsLoading(true);
       const { categories, products } = await productsPageLoader({
         params,
         search,
       });
-
+      setIsLoading(false);
       setData({ categories, products });
     };
     loadData();
@@ -98,10 +101,14 @@ function HomeContent() {
         }}
       >
         <Paper elevation={2} sx={{ p: 2 }}>
-          <Categories
-            categories={data.categories}
-            onCategoriesClick={handleCategoryClick}
-          />
+          {isLoading ? (
+            <CategoriesSkeleton />
+          ) : (
+            <Categories
+              categories={data.categories}
+              onCategoriesClick={handleCategoryClick}
+            />
+          )}
         </Paper>
       </Box>
 
@@ -111,7 +118,11 @@ function HomeContent() {
           {categoryName}
         </Typography>
         <Box ref={containerRef}>
-          <Products products={data.products} columns={columns} />
+          {isLoading ? (
+            <ProductsSkeleton columns={columns} />
+          ) : (
+            <Products products={data.products} columns={columns} />
+          )}
         </Box>
       </Box>
     </Box>
