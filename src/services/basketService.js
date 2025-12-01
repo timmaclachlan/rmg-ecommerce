@@ -1,12 +1,7 @@
 import { db } from '../mocks/db';
 
 export function getBasketByUserId(userId) {
-  return (
-    db.baskets.find((b) => b.id === userId) || {
-      id: userId,
-      items: [],
-    }
-  );
+  return db.baskets.find((b) => b.id === userId) || null;
 }
 
 export function addItemToBasket(userId, newItem) {

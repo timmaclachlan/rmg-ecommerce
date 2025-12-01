@@ -4,8 +4,8 @@ export function getProductById(id) {
   return db.products.find((p) => p.id === Number(id)) || null;
 }
 
-export function getProductsByCategory(categoryId) {
-  return db.products.filter((p) => p.category === categoryId);
+export function getProductsByCategory(category) {
+  return db.products.filter((p) => p.category === category);
 }
 
 export function getProductsOnSale() {

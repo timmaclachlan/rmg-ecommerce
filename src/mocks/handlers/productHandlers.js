@@ -30,11 +30,11 @@ export const productHandlers = [
   }),
 
   // Get products by category ID
-  rest.get('/api/products/category/:categoryId', (req, res, ctx) => {
-    const { categoryId } = req.params;
-    console.log(`MSW intercepted /api/products/category/${categoryId}`);
+  rest.get('/api/products/category/:category', (req, res, ctx) => {
+    const { category } = req.params;
+    console.log(`MSW intercepted /api/products/category/${category}`);
 
-    const products = getProductsByCategory(categoryId);
+    const products = getProductsByCategory(category);
 
     if (!products || products.length === 0) {
       return res(

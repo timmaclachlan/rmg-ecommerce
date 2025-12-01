@@ -13,8 +13,8 @@ describe('basketService', () => {
       {
         id: 1,
         items: [
-          { productId: 'apple', quantity: 2 },
-          { productId: 'banana', quantity: 1 },
+          { productId: 1, quantity: 2 },
+          { productId: 2, quantity: 1 },
         ],
       },
     ];
@@ -28,63 +28,61 @@ describe('basketService', () => {
 
     it('returns empty basket for unknown user', () => {
       const basket = getBasketByUserId(999);
-      expect(basket).toEqual({ id: 999, items: [] });
+      expect(basket).toBeNull();
     });
   });
 
   describe('addItemToBasket', () => {
     it('adds new item to existing basket', () => {
-      const basket = addItemToBasket(1, { productId: 'orange', quantity: 3 });
-      expect(basket.items).toContainEqual({ productId: 'orange', quantity: 3 });
+      const basket = addItemToBasket(1, { productId: 3, quantity: 2 });
+      expect(basket.items).toContainEqual({ productId: 3, quantity: 2 });
     });
 
     it('increments quantity of existing item', () => {
-      const basket = addItemToBasket(1, { productId: 'apple', quantity: 2 });
-      const item = basket.items.find((i) => i.productId === 'apple');
+      const basket = addItemToBasket(1, { productId: 1, quantity: 2 });
+      const item = basket.items.find((i) => i.productId === 1);
       expect(item.quantity).toBe(4);
     });
 
     it('creates new basket for unknown user', () => {
-      const basket = addItemToBasket(2, { productId: 'pear', quantity: 1 });
-      expect(basket.id).toBe(2);
-      expect(basket.items).toEqual([{ productId: 'pear', quantity: 1 }]);
+      const basket = addItemToBasket(999, { productId: 1, quantity: 2 });
+      expect(basket.id).toBe(999);
+      expect(basket.items).toEqual([{ productId: 1, quantity: 2 }]);
     });
   });
 
   describe('updateItemQuantity', () => {
     it('updates quantity of existing item', () => {
-      const basket = updateItemQuantity(1, 'banana', 5);
-      const item = basket.items.find((i) => i.productId === 'banana');
-      expect(item.quantity).toBe(5);
+      const basket = updateItemQuantity(1, 1, 3);
+      const item = basket.items.find((i) => i.productId === 1);
+      expect(item.quantity).toBe(3);
     });
 
     it('does nothing if item not found', () => {
-      const basket = updateItemQuantity(1, 'pear', 2);
-      expect(basket.items.find((i) => i.productId === 'pear')).toBeUndefined();
+      const basket = updateItemQuantity(1, 1, 3);
+      expect(basket.items.find((i) => i.productId === 3)).toBeUndefined();
     });
 
     it('returns empty basket for unknown user', () => {
-      const basket = updateItemQuantity(999, 'apple', 1);
-      expect(basket.items).toEqual([]);
+      const basket = updateItemQuantity(999, 3, 3);
+      expect(basket).toBeNull();
     });
   });
 
   describe('removeItemFromBasket', () => {
     it('removes item from basket', () => {
-      const basket = removeItemFromBasket(1, 'banana');
-      expect(
-        basket.items.find((i) => i.productId === 'banana'),
-      ).toBeUndefined();
+      const basket = removeItemFromBasket(1, 1);
+      expect(basket.items.find((i) => i.productId === 1)).toBeUndefined();
     });
 
     it('does nothing if item not found', () => {
-      const basket = removeItemFromBasket(1, 'pear');
+      const basket = removeItemFromBasket(1, 999);
       expect(basket.items.length).toBe(2);
     });
 
     it('returns empty basket for unknown user', () => {
-      const basket = removeItemFromBasket(999, 'apple');
-      expect(basket.items).toEqual([]);
+      const basket = removeItemFromBasket(999, 3);
+      expect(basket).toBeNull();
     });
   });
 });

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 // useBasket.test.js
 import { renderHook, act } from '@testing-library/react';
 import { useBasket } from './useBasket';
@@ -8,8 +12,8 @@ import * as basketHelpers from '../reducers/basketHelpers';
 jest.mock('../context/BasketContext', () => ({
   useBasketContext: () => ({
     basketItems: [
-      { productId: 'apple', quantity: 2, price: 1 },
-      { productId: 'banana', quantity: 1, price: 2 },
+      { productId: 1, quantity: 2, price: 1 },
+      { productId: 2, quantity: 1, price: 2 },
     ],
     dispatch: jest.fn(),
   }),
@@ -24,25 +28,23 @@ jest.spyOn(basketActions, 'clearBasketItems').mockResolvedValue();
 describe('useBasket', () => {
   it('adds item and dispatches ADDITEM', async () => {
     const { result } = renderHook(() => useBasket());
-    await act(() =>
-      result.current.addItem({ productId: 'orange', quantity: 1 }),
-    );
+    await act(() => result.current.addItem({ productId: 1, quantity: 1 }));
     expect(basketActions.addItemToBasket).toHaveBeenCalledWith(1, {
-      productId: 'orange',
+      productId: 1,
       quantity: 1,
     });
   });
 
   it('deletes item and dispatches DELETEITEM', async () => {
     const { result } = renderHook(() => useBasket());
-    await act(() => result.current.deleteItem({ id: 'apple' }));
-    expect(basketActions.deleteBasketItem).toHaveBeenCalledWith(1, 'apple');
+    await act(() => result.current.deleteItem({ id: 2 }));
+    expect(basketActions.deleteBasketItem).toHaveBeenCalledWith(1, 2);
   });
 
   it('updates quantity and dispatches UPDATEQUANTITY', async () => {
     const { result } = renderHook(() => useBasket());
-    await act(() => result.current.updateQuantity('banana', 5));
-    expect(basketActions.updateBasketItem).toHaveBeenCalledWith(1, 'banana', 5);
+    await act(() => result.current.updateQuantity(1, 5));
+    expect(basketActions.updateBasketItem).toHaveBeenCalledWith(1, 1, 5);
   });
 
   it('clears basket and dispatches CLEARBASKET', async () => {
@@ -69,8 +71,8 @@ describe('useBasket', () => {
   it('returns invalid items', () => {
     jest
       .spyOn(basketHelpers, 'getInvalidItems')
-      .mockReturnValue([{ productId: 'apple' }]);
+      .mockReturnValue([{ productId: 3 }]);
     const { result } = renderHook(() => useBasket());
-    expect(result.current.invalidItems).toEqual([{ productId: 'apple' }]);
+    expect(result.current.invalidItems).toEqual([{ productId: 3 }]);
   });
 });
