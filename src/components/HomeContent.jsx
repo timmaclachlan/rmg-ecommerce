@@ -9,6 +9,7 @@ import { productsPageLoader } from '../loaders/productLoaders';
 import CategoriesSkeleton from './Categories/CategoriesSkeleton';
 
 function HomeContent() {
+  const [isPaging, setIsPaging] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const params = useParams();
@@ -118,10 +119,15 @@ function HomeContent() {
           {categoryName}
         </Typography>
         <Box ref={containerRef}>
-          {isLoading ? (
+          {isLoading || isPaging ? (
             <ProductsSkeleton columns={columns} />
           ) : (
-            <Products products={data.products} columns={columns} />
+            <Products
+              products={data.products}
+              columns={columns}
+              onPagingStart={() => setIsPaging(true)}
+              onPagingEnd={() => setIsPaging(false)}
+            />
           )}
         </Box>
       </Box>
