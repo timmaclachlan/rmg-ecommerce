@@ -1,5 +1,5 @@
 // customerService.test.js
-import { db } from '../mocks/db';
+import { db } from '../../src/mocks/db';
 import { getCustomerById, updateCustomer } from './customerService';
 
 describe('customerService', () => {

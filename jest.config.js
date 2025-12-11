@@ -4,7 +4,7 @@ export default {
     '^.+\\.js$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(@mswjs|msw|until-async)/)', // ← allow these packages to be transformed
+    '/node_modules/', // ← allow these packages to be transformed
   ],
   setupFiles: ['./jest.setup.js'],
 };

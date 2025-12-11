@@ -1,5 +1,5 @@
 // customerService.js
-import { db } from '../mocks/db';
+import { db } from '../data/db.js';
 
 export function getCustomerById(id) {
   return db.customers.find((c) => c.id === Number(id)) || null;

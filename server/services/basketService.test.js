@@ -5,7 +5,7 @@ import {
   removeItemFromBasket,
 } from './basketService';
 
-import { db } from '../mocks/db';
+import { db } from '../../src/mocks/db';
 
 describe('basketService', () => {
   beforeEach(() => {

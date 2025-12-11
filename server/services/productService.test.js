@@ -1,4 +1,4 @@
-import { db } from '../mocks/db';
+import { db } from '../../src/mocks/db';
 import {
   getProductById,
   getProductsByCategory,

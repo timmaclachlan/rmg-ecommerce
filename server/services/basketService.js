@@ -1,4 +1,4 @@
-import { db } from '../mocks/db';
+import { db } from '../data/db.js';
 
 export function getBasketByUserId(userId) {
   return db.baskets.find((b) => b.id === userId) || null;

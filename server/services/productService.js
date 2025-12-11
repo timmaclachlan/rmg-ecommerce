@@ -1,4 +1,4 @@
-import { db } from '../mocks/db';
+import { db } from '../data/db.js';
 
 export function getProductById(id) {
   return db.products.find((p) => p.id === Number(id)) || null;
