@@ -13,7 +13,6 @@ function ProductPrice({ discountPercentage, price, variant = 'h5' }) {
         >
           £{price.toFixed(2)}
         </Typography>
-        variant
         <Typography variant={variant} color="success.main" fontWeight={600}>
           £{(price * (1 - discountPercentage / 100)).toFixed(2)}
         </Typography>

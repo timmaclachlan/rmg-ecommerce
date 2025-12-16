@@ -5,36 +5,43 @@ import {
   addItemToBasket,
   updateItemQuantity,
   removeItemFromBasket,
+  clearBasket,
 } from '../services/basketService.js';
 
 const router = express.Router();
 
-router.get('/api/basket/:userId', (req, res, ctx) => {
+router.get('/:userId', (req, res) => {
   const { userId } = req.params;
   const basket = getBasketByUserId(userId);
-  return res(ctx.status(200), ctx.json(basket));
+  return res.status(200).json(basket);
 });
 
-router.post('/api/basket/:userId', async (req, res, ctx) => {
+router.post('/:userId', (req, res) => {
   console.log('POST /api/basket/:userId called');
   const { userId } = req.params;
-  const newItem = await req.json();
+  const newItem = req.body;
 
   const basket = addItemToBasket(userId, newItem);
-  return res(ctx.status(200), ctx.json(basket));
+  return res.status(200).json(basket);
 });
 
-router.put('/api/basket/:userId/:productId', async (req, res, ctx) => {
+router.put('/:userId/:productId', (req, res) => {
   const { userId, productId } = req.params;
-  const { quantity } = await req.json();
+  const { quantity } = req.body;
   const basket = updateItemQuantity(userId, productId, quantity);
-  return res(ctx.status(200), ctx.json(basket));
+  return res.status(200).json(basket);
 });
 
-router.delete('/api/basket/:userId/:productId', (req, res, ctx) => {
+router.delete('/:userId/:productId', (req, res) => {
   const { userId, productId } = req.params;
   const basket = removeItemFromBasket(userId, productId);
-  return res(ctx.status(200), ctx.json(basket));
+  return res.status(200).json(basket);
+});
+
+router.delete('/:userId', (req, res) => {
+  const { userId } = req.params;
+  const basket = clearBasket(userId);
+  return res.status(200).json(basket);
 });
 
 export default router;

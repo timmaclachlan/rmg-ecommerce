@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import checker from "vite-plugin-checker";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import checker from 'vite-plugin-checker';
 
 export default defineConfig({
   plugins: [
@@ -8,7 +8,7 @@ export default defineConfig({
     checker({
       eslint: {
         useFlatConfig: true,
-        lintCommand: "eslint src --ext .js,.jsx",
+        lintCommand: 'eslint src --ext .js,.jsx',
       },
     }),
   ],
@@ -16,6 +16,16 @@ export default defineConfig({
     sourcemap: true,
   },
   optimizeDeps: {
-    include: ['msw']
-  }
+    include: ['msw'],
+  },
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

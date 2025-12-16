@@ -5,10 +5,8 @@ import { getAllCategories } from '../services/categoryService.js';
 const router = express.Router();
 
 // GET /api/categories
-router.get('/api/categories', (req, res, ctx) => {
-  console.log('MSW → categories');
-
-  return res(ctx.status(200), ctx.json(getAllCategories()));
+router.get('/', (req, res) => {
+  return res.status(200).json(getAllCategories());
 });
 
 export default router;

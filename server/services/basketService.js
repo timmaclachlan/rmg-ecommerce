@@ -48,3 +48,13 @@ export function removeItemFromBasket(userId, productId) {
 
   return basket;
 }
+
+export function clearBasket(userId) {
+  const basket = getBasketByUserId(userId);
+
+  if (basket) {
+    basket.items = [];
+  }
+
+  return basket;
+}

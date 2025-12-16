@@ -11,7 +11,8 @@
     "format": "prettier \"src/**/*.{js,jsx,css,scss}\" --write",
     "preview": "vite preview",
     "test": "jest",
-    "start-server": "node server/index.js"
+    "start-server": "nodemon server/index.js", 
+    "start": "concurrently \"npm run dev\" \"npm run start-server\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
     "babel-jest": "^29.7.0",
+    "concurrently": "^9.2.1",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.14.0",
@@ -45,6 +47,7 @@
     "globals": "^16.3.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "nodemon": "^3.1.11",
     "prettier": "^3.3.3",
     "vite": "^7.0.4",
     "vite-plugin-checker": "^0.10.0"

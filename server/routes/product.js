@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Get products on sale
 router.get('/onsale', (req, res) => {
-  console.log('Express: GET /api/products/onsale');
+  console.log('Express: GET /api/product/onsale');
   const products = getProductsOnSale();
   res.json(products);
 });
@@ -19,7 +19,7 @@ router.get('/onsale', (req, res) => {
 // Get product by ID
 router.get('/:productId', (req, res) => {
   const { productId } = req.params;
-  console.log(`Express: GET /api/products/${productId}`);
+  console.log(`Express: GET /api/product/${productId}`);
   const product = getProductById(productId);
 
   if (!product) {
