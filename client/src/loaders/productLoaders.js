@@ -1,4 +1,4 @@
-import { data } from 'react-router';
+import { data } from 'react-router-dom';
 import axios from 'axios';
 
 export const productLoader = async (params) => {

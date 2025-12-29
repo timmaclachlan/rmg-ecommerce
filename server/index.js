@@ -13,6 +13,7 @@ const PORT = 4000;
 // Middlewares
 app.use(cors()); // allow React dev server
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use('/api/product', productRoutes); // change from /api/products to /api/product

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import StoreTop from '../../components/Header/StoreTop';
 
 function Footer() {

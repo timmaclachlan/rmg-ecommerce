@@ -15,7 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 import { useBasket } from '../../hooks/useBasket';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import ProductPrice from '../../components/Products/ProductPrice';
 

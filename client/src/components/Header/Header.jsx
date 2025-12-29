@@ -8,7 +8,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import ThemeModeSwitch from './ThemeModeSwitch';
 import ThemeSelector from './ThemeSelector';

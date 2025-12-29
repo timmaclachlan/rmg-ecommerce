@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router-dom';
 import HomeContent from '../../components/HomeContent';
 
 export default function CategoryPage() {

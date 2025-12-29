@@ -80,6 +80,10 @@ export const db = {
   remove,
 
   // Optional semantic aliases (nice DX)
+  categories: {
+    getAll: () => getAll('categories'),
+  },
+
   products: {
     getAll: () => getAll('products'),
     getById: (id) => getById('products', id),

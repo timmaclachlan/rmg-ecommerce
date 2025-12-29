@@ -3,7 +3,7 @@ import {
   createRoutesFromElements,
   Route,
   createBrowserRouter,
-} from 'react-router';
+} from 'react-router-dom';
 
 import PageNotFound from './PageNotFound';
 

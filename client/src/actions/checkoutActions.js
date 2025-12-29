@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { redirect } from 'react-router-dom';
 
 export const checkoutAction = async ({ request }) => {
   const formData = await request.formData();
@@ -6,4 +6,4 @@ export const checkoutAction = async ({ request }) => {
   alert(`Thank you for your purchase, ${customer.name}!`);
   // Save customer, trigger confirmation, etc.
   return redirect('/purchase/confirmation');
-}
+};

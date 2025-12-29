@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { useNavigate, useSearchParams, useParams } from 'react-router';
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import { Typography, Box, Paper } from '@mui/material';
 
 import Products from './Products/Products';

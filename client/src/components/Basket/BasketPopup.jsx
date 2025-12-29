@@ -1,6 +1,6 @@
 import { Box, Typography, Stack, Divider, Button, Avatar } from '@mui/material';
 import { useBasket } from '../../hooks/useBasket';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ProductPrice from '../Products/ProductPrice';
 
 export default function BasketPopup() {

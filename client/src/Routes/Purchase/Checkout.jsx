@@ -12,7 +12,7 @@ import {
   Stack,
 } from '@mui/material';
 
-import { useNavigate, useSubmit } from 'react-router';
+import { useNavigate, useSubmit } from 'react-router-dom';
 
 import { useCustomer } from '../../hooks/useCustomer';
 import { useMutateEntity } from '../../hooks/useMutateEntity';
