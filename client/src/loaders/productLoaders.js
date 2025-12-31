@@ -8,7 +8,7 @@ export const productLoader = async (params) => {
   }
 
   try {
-    const response = await axios.get(`/api/product/${id}`);
+    const response = await axios.get(`/api/products/${id}`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -39,7 +39,7 @@ export const productsPageLoader = async (args = {}) => {
 
   try {
     // Always load categories
-    const categoriesRes = await axios.get('/api/category');
+    const categoriesRes = await axios.get('/api/categories');
 
     let productsRes;
 
@@ -50,10 +50,10 @@ export const productsPageLoader = async (args = {}) => {
       );
     } else if (category) {
       console.log(`Loading products in category: ${category}`);
-      productsRes = await axios.get(`/api/product/category/${category}`);
+      productsRes = await axios.get(`/api/products/categories/${category}`);
     } else {
       console.log('No category selected — loading products on sale');
-      productsRes = await axios.get('/api/product/onsale');
+      productsRes = await axios.get('/api/products/onsale');
     }
 
     if (category && productsRes.data.length === 0) {
