@@ -1,4 +1,4 @@
-// /server/customerRoutes.js
+// server/routes/customer.js
 import express from 'express';
 import {
   getCustomerById,
@@ -7,26 +7,43 @@ import {
 
 const router = express.Router();
 
-// GET customer by ID
-router.get('/:customerId', (req, res) => {
-  console.log('Express GET /api/customer/:customerId');
-  const { customerId } = req.params;
-  const customer = getCustomerById(customerId);
+/**
+ * GET /api/customer/:id
+ */
+router.get('/:id', (req, res) => {
+  console.log('Express GET /api/customer/:id');
+
+  const id = Number(req.params.id);
+  const customer = getCustomerById(id);
+
   if (!customer) {
     return res.status(404).json({ error: 'Customer not found' });
   }
-  res.status(200).json(customer);
+  res.json({
+    success: true,
+    data: customer,
+  });
 });
 
-// PUT update customer
-router.put('/', express.json(), (req, res) => {
-  console.log('Express PUT /api/customer');
-  const updatedCustomer = req.body;
-  const result = updateCustomer(updatedCustomer);
-  if (!result) {
+/**
+ * PUT /api/customer/:id
+ */
+router.put('/:id', (req, res) => {
+  console.log('Express PUT /api/customer/:id');
+
+  const id = Number(req.params.id);
+  const fields = req.body;
+
+  const updatedCustomer = updateCustomer(id, fields);
+
+  if (!updatedCustomer) {
     return res.status(404).json({ error: 'Customer not found' });
   }
-  res.status(200).json(result);
+
+  res.json({
+    success: true,
+    data: updateCustomer,
+  });
 });
 
 export default router;

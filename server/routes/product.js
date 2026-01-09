@@ -7,75 +7,110 @@ import {
   getProductsBySearchTerm,
 } from '../services/productService.js';
 
+import catchAsync from '../utils/catchAsync.js';
+
 const router = express.Router();
 
-// Get products on sale
-router.get('/onsale', (req, res) => {
-  try {
-    console.log('Express: GET /api/product/onsale');
+/* ----------------------------------
+   GET products on sale
+   /api/products/onsale
+----------------------------------- */
+router.get(
+  '/onsale',
+  catchAsync(async (req, res) => {
+    console.log('Express: GET /api/products/onsale');
+
     const products = getProductsOnSale();
-    res.json(products);
-  } catch (error) {
-    next(error);
-  }
-});
 
-// Get product by ID
-router.get('/:productId', (req, res, next) => {
-  try {
-    const { productId } = req.params;
-    console.log(`Express: GET /api/product/${productId}`);
-    const product = getProductById(productId);
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
-    }
-    res.json(product);
-  } catch (error) {
-    next(error);
-  }
-});
+    res.json({
+      success: true,
+      data: products,
+    });
+  }),
+);
 
-// Get products by category
-router.get('/category/:category', (req, res) => {
-  try {
+/* ----------------------------------
+   GET products by category
+   /api/products/category/:category
+----------------------------------- */
+router.get(
+  '/category/:category',
+  catchAsync(async (req, res) => {
     const { category } = req.params;
     console.log(`Express: GET /api/products/category/${category}`);
+
     const products = getProductsByCategory(category);
 
     if (!products || products.length === 0) {
-      return res
-        .status(404)
-        .json({ error: 'No products found in this category' });
+      const err = new Error('No products found in this category');
+      err.status = 404;
+      throw err;
     }
-    res.json(products);
-  } catch (error) {
-    next(error);
-  }
-});
 
-// Get products by search term
-router.get('/', (req, res) => {
-  const searchTerm = req.query.search || '';
-  console.log(`Express: GET /api/products?search=${searchTerm}`);
-  const products = getProductsBySearchTerm(searchTerm);
+    res.json({
+      success: true,
+      data: products,
+    });
+  }),
+);
 
-  if (!products || products.length === 0) {
-    return res
-      .status(404)
-      .json({ error: 'No products found with this search term' });
-  }
-  res.json(products);
-});
+/* ----------------------------------
+   GET product by ID
+   /api/products/:productId
+----------------------------------- */
+router.get(
+  '/:productId',
+  catchAsync(async (req, res) => {
+    const { productId } = req.params;
+    console.log(`Express: GET /api/products/${productId}`);
 
-// get all products
-router.get('/', async (req, res, next) => {
-  try {
-    const products = getProducts();
-    throw error('Test error handling');
-    res.json({ success: true, data: products });
-  } catch (err) {
-    next(err);
-  }
-});
+    const product = getProductById(productId);
+
+    if (!product) {
+      const err = new Error('Product not found');
+      err.status = 404;
+      throw err;
+    }
+
+    res.json({
+      success: true,
+      data: product,
+    });
+  }),
+);
+
+/* ----------------------------------
+   GET all products OR search
+   /api/products
+   /api/products?search=term
+----------------------------------- */
+router.get(
+  '/',
+  catchAsync(async (req, res) => {
+    const searchTerm = req.query.search;
+    console.log(
+      `Express: GET /api/products${searchTerm ? `?search=${searchTerm}` : ''}`,
+    );
+
+    const products = searchTerm
+      ? getProductsBySearchTerm(searchTerm)
+      : getProducts();
+
+    if (!products || products.length === 0) {
+      const err = new Error(
+        searchTerm
+          ? 'No products found with this search term'
+          : 'No products found',
+      );
+      err.status = 404;
+      throw err;
+    }
+
+    res.json({
+      success: true,
+      data: products,
+    });
+  }),
+);
 
 export default router;

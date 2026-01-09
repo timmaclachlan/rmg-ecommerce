@@ -92,9 +92,7 @@ function Products({ products, columns, onPagingStart, onPagingEnd }) {
                   <Typography
                     variant="h6"
                     gutterBottom
-                    onClick={() =>
-                      navigate(`/store/products/${item.id}/${item.category}`)
-                    }
+                    onClick={() => navigate(`/store/products/${item.id}`)}
                     sx={{ cursor: 'pointer' }}
                   >
                     {item.title}

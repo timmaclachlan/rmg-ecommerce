@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 
 import productRoutes from './routes/product.js';
 import customerRoutes from './routes/customer.js';
@@ -11,11 +10,11 @@ const app = express();
 
 // Middlewares
 app.use(cors()); // allow React dev server
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Logging middleware
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
   console.log(` logger ${req.method} ${req.url}`);
   next();
 });
